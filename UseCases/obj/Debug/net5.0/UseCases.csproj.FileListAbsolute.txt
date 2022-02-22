@@ -1,0 +1,15 @@
+C:\Users\Administrator\source\repos\UseCases\bin\Debug\net5.0\UseCases.deps.json
+C:\Users\Administrator\source\repos\UseCases\bin\Debug\net5.0\UseCases.dll
+C:\Users\Administrator\source\repos\UseCases\bin\Debug\net5.0\ref\UseCases.dll
+C:\Users\Administrator\source\repos\UseCases\bin\Debug\net5.0\UseCases.pdb
+C:\Users\Administrator\source\repos\UseCases\bin\Debug\net5.0\DomainModel.dll
+C:\Users\Administrator\source\repos\UseCases\bin\Debug\net5.0\DomainModel.pdb
+C:\Users\Administrator\source\repos\UseCases\obj\Debug\net5.0\UseCases.csproj.AssemblyReference.cache
+C:\Users\Administrator\source\repos\UseCases\obj\Debug\net5.0\UseCases.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\source\repos\UseCases\obj\Debug\net5.0\UseCases.AssemblyInfoInputs.cache
+C:\Users\Administrator\source\repos\UseCases\obj\Debug\net5.0\UseCases.AssemblyInfo.cs
+C:\Users\Administrator\source\repos\UseCases\obj\Debug\net5.0\UseCases.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\UseCases\obj\Debug\net5.0\UseCases.csproj.CopyComplete
+C:\Users\Administrator\source\repos\UseCases\obj\Debug\net5.0\UseCases.dll
+C:\Users\Administrator\source\repos\UseCases\obj\Debug\net5.0\ref\UseCases.dll
+C:\Users\Administrator\source\repos\UseCases\obj\Debug\net5.0\UseCases.pdb

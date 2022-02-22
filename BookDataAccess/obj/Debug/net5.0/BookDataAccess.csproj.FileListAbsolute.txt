@@ -1,0 +1,12 @@
+C:\Users\Administrator\source\repos\BookDataAccess\bin\Debug\net5.0\BookDataAccess.deps.json
+C:\Users\Administrator\source\repos\BookDataAccess\bin\Debug\net5.0\BookDataAccess.dll
+C:\Users\Administrator\source\repos\BookDataAccess\bin\Debug\net5.0\ref\BookDataAccess.dll
+C:\Users\Administrator\source\repos\BookDataAccess\bin\Debug\net5.0\BookDataAccess.pdb
+C:\Users\Administrator\source\repos\BookDataAccess\obj\Debug\net5.0\BookDataAccess.csproj.AssemblyReference.cache
+C:\Users\Administrator\source\repos\BookDataAccess\obj\Debug\net5.0\BookDataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\source\repos\BookDataAccess\obj\Debug\net5.0\BookDataAccess.AssemblyInfoInputs.cache
+C:\Users\Administrator\source\repos\BookDataAccess\obj\Debug\net5.0\BookDataAccess.AssemblyInfo.cs
+C:\Users\Administrator\source\repos\BookDataAccess\obj\Debug\net5.0\BookDataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\BookDataAccess\obj\Debug\net5.0\BookDataAccess.dll
+C:\Users\Administrator\source\repos\BookDataAccess\obj\Debug\net5.0\ref\BookDataAccess.dll
+C:\Users\Administrator\source\repos\BookDataAccess\obj\Debug\net5.0\BookDataAccess.pdb
