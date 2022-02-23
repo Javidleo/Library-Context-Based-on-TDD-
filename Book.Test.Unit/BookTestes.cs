@@ -1,7 +1,10 @@
+using BookDataAccess.Repository;
 using DomainModel;
+using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using UseCases.Exceptions;
+using UseCases.RepositoryContract;
 using UseCases.Services;
 using Xunit;
 
@@ -11,16 +14,18 @@ namespace BookTest.Unit
     {
         private readonly BookService service;
         private readonly BookValidation validation;
+        private readonly IBookRepository _repository;
         public BookTestes()
         {
-            service = new BookService();
+            _repository = new BookRepository();
+            service = new BookService(_repository);
             validation = new BookValidation();
         }
 
         [Fact, Trait("Book", "validation")]
         public void BookValidation_ValidatingNullBookName_ShouldHaveError()
         {
-            var book = Book.Create(1, "", "authorName", "11/12/1399");
+            var book = Book.Create("", "authorName", "11/12/1399");
             var result = validation.TestValidate(book);
             result.ShouldHaveValidationErrorFor(book => book.Name);
         }
@@ -28,7 +33,7 @@ namespace BookTest.Unit
         [Fact, Trait("Book", "validation")]
         public void BookValidation_VaidatingValidName_ShouldNotHaveError()
         {
-            var book = Book.Create(1, "book", "authorName", "11/12/1399");
+            var book = Book.Create("book", "authorName", "11/12/1399");
             var result = validation.TestValidate(book);
             result.ShouldNotHaveValidationErrorFor(book => book.Name);
         }
@@ -36,7 +41,7 @@ namespace BookTest.Unit
         [Fact, Trait("Book", "validation")]
         public void BookValidation_ValidatingNullAuthorName_ShouldHaveError()
         {
-            var book = Book.Create(1, "bookName", "", "11/12/1399");
+            var book = Book.Create("bookName", "", "11/12/1399");
             var result = validation.TestValidate(book);
             result.ShouldHaveValidationErrorFor(book => book.authorName);
         }
@@ -44,7 +49,7 @@ namespace BookTest.Unit
         [Fact, Trait("Book", "validation")]
         public void BookValidation_ValidatingInvalidAuthorName_ShouldHaveError()
         {
-            var book = Book.Create(1, "bookName", "name123", "11/12/1399");
+            var book = Book.Create("bookName", "name123", "11/12/1399");
             var result = validation.TestValidate(book);
             result.ShouldHaveValidationErrorFor(book => book.authorName);
         }
@@ -52,7 +57,7 @@ namespace BookTest.Unit
         [Fact, Trait("Book", "validation")]
         public void BookValidtion_ValidtingValidAuthorName_ShouldNotHaveError()
         {
-            var book = Book.Create(1, "bookName", "authorName", "11/12/1399");
+            var book = Book.Create("bookName", "authorName", "11/12/1399");
             var result = validation.TestValidate(book);
             result.ShouldNotHaveValidationErrorFor(book => book.authorName);
         }
@@ -60,15 +65,15 @@ namespace BookTest.Unit
         [Fact, Trait("Book", "validation")]
         public void BookValidation_ValidatingNullAddingDate_ShouldHaveError()
         {
-            var book = Book.Create(1, "bookName", "authorName", "");
+            var book = Book.Create("bookName", "authorName", "");
             var result = validation.TestValidate(book);
             result.ShouldHaveValidationErrorFor(book => book.DateofAdding);
         }
 
-        [Fact , Trait("Book", "validation")]
+        [Fact, Trait("Book", "validation")]
         public void BookValidation_ValidatingInvalidAddingDate_ShouldHaveError()
         {
-            var book = Book.Create(1, "bookName", "authorName", "41/42/1300");
+            var book = Book.Create("bookName", "authorName", "41/42/1300");
             var result = validation.TestValidate(book);
             result.ShouldHaveValidationErrorFor(book => book.DateofAdding);
         }
@@ -76,29 +81,29 @@ namespace BookTest.Unit
         [Fact, Trait("Book", "validation")]
         public void BookValidation_ValidatingValidAddingDate_ShouldNotHaveError()
         {
-            var book = Book.Create(1, "bookName", "authorName", "11/12/1399");
+            var book = Book.Create("bookName", "authorName", "11/12/1399");
             var result = validation.TestValidate(book);
             result.ShouldNotHaveValidationErrorFor(book => book.DateofAdding);
         }
 
-        [Theory , Trait("Book", "create")]
-        [InlineData(1,"book1", "ali","11/11/1311")]
-        [InlineData(1,"book1", "reza","11/10/1378")]
-        [InlineData(1,"bookforanyone", "ali","11/11/1398")]
-        [InlineData(1,"book1", "reza","11/11/1345")]
-        public void CreateBook_CheckForCreatingSuccessfully_ReturnRanToCompletionTaskStatus(int id , string name , string authorName , string dateofAdding)
+        [Theory, Trait("Book", "create")]
+        [InlineData("book1", "ali", "11/11/1311")]
+        [InlineData("book1", "reza", "11/10/1378")]
+        [InlineData("bookforanyone", "ali", "11/11/1398")]
+        [InlineData("book1", "reza", "11/11/1345")]
+        public void CreateBook_CheckForCreatingSuccessfully_ReturnRanToCompletionTaskStatus(string name, string authorName, string dateofAdding)
         {
-            var result =service.Create(id, name, authorName, dateofAdding);
+            var result = service.Create(name, authorName, dateofAdding);
             result.Status.ToString().Should().Be("RanToCompletion");
         }
 
-        [Theory , Trait("Book", "create")]
-        [InlineData(1, "book1", "ali", "111/1123/13115")]
-        [InlineData(1, "", "ali", "13/004/1")]
-        [InlineData(1, "book1", "", "44/3/1315")]
-        public void CreateBook_CheckForCreateingWithInvalidValues_ThrowNotAcceptableException(int id , string name ,string authorName ,string dateofAdding)
+        [Theory, Trait("Book", "create")]
+        [InlineData("book1", "ali", "111/1123/13115")]
+        [InlineData("", "ali", "13/004/1")]
+        [InlineData("book1", "", "44/3/1315")]
+        public void CreateBook_CheckForCreateingWithInvalidValues_ThrowNotAcceptableException(string name, string authorName, string dateofAdding)
         {
-            void result() => service.Create(id, name, authorName, dateofAdding);
+            void result() => service.Create(name, authorName, dateofAdding);
             Assert.Throws<NotAcceptableException>(result);
         }
 

@@ -1,0 +1,15 @@
+E:\Project\TddBdd\UseCases\bin\Debug\net6.0\UseCases.deps.json
+E:\Project\TddBdd\UseCases\bin\Debug\net6.0\UseCases.dll
+E:\Project\TddBdd\UseCases\bin\Debug\net6.0\ref\UseCases.dll
+E:\Project\TddBdd\UseCases\bin\Debug\net6.0\UseCases.pdb
+E:\Project\TddBdd\UseCases\bin\Debug\net6.0\DomainModel.dll
+E:\Project\TddBdd\UseCases\bin\Debug\net6.0\DomainModel.pdb
+E:\Project\TddBdd\UseCases\obj\Debug\net6.0\UseCases.csproj.AssemblyReference.cache
+E:\Project\TddBdd\UseCases\obj\Debug\net6.0\UseCases.GeneratedMSBuildEditorConfig.editorconfig
+E:\Project\TddBdd\UseCases\obj\Debug\net6.0\UseCases.AssemblyInfoInputs.cache
+E:\Project\TddBdd\UseCases\obj\Debug\net6.0\UseCases.AssemblyInfo.cs
+E:\Project\TddBdd\UseCases\obj\Debug\net6.0\UseCases.csproj.CoreCompileInputs.cache
+E:\Project\TddBdd\UseCases\obj\Debug\net6.0\UseCases.csproj.CopyComplete
+E:\Project\TddBdd\UseCases\obj\Debug\net6.0\UseCases.dll
+E:\Project\TddBdd\UseCases\obj\Debug\net6.0\ref\UseCases.dll
+E:\Project\TddBdd\UseCases\obj\Debug\net6.0\UseCases.pdb

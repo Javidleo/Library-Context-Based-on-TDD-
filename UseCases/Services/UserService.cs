@@ -1,32 +1,29 @@
 ﻿using DomainModel;
+using DomainModel.Validation;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
+using UseCases.RepositoryContract;
 
 namespace UseCases.Services
 {
     public class UserService
     {
-        public UserService()
+        private readonly IUserRepository _repository;
+        private readonly UserValidation validation;
+        public UserService(IUserRepository repository)
         {
+            _repository = repository;
+            validation = new UserValidation();
         }
 
-        public Task Create(int id, string name, string family, int age, string nationalCode, string email)
+        public Task Create(string name, string family, int age, string nationalCode, string email)
         {
-            User user = User.Create(id, name, family, age, nationalCode, email);
+            User user = User.Create(name, family, age, nationalCode, email);
 
-            //Null Cheking
-            if (string.IsNullOrEmpty(name))
-                throw new NotAcceptableException("Name is Empty");
+            if (!validation.Validate(user).IsValid)
+                throw new NotAcceptableException("Invalid User");
 
-            if (string.IsNullOrEmpty(family))
-                throw new NotAcceptableException("Family is Empty");
-
-            if (string.IsNullOrEmpty(nationalCode))
-                throw new NotAcceptableException("NationalCode is Empty");
-
-            if (string.IsNullOrEmpty(email))
-                throw new NotAcceptableException("Email is Empty");
-
+            _repository.Add(user);
             return Task.CompletedTask;
         }
     }

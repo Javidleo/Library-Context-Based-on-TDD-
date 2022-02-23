@@ -10,17 +10,16 @@ namespace DomainModel
         public string NationalCode { get; private set; }
         public string Email { get; private set; }
 
-        User(int id, string name, string family, int age, string nationalCode, string email)
+        User(string name, string family, int age, string nationalCode, string email)
         {
-            Id = id;
             Name = name;
             Family = family;
             Age = age;
             NationalCode = nationalCode;
             Email = email;
         }
-        public static User Create(int id, string name, string family, int age, string nationalCode, string email)
-        => new(id, name, family, age, nationalCode, email);
+        public static User Create(string name, string family, int age, string nationalCode, string email)
+        => new(name, family, age, nationalCode, email);
 
     }
 }

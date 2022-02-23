@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UseCases
+﻿namespace UseCases
 {
     public class Class1
     {

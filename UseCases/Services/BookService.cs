@@ -1,32 +1,30 @@
 ﻿using DomainModel;
-using System.Text.RegularExpressions;
+using DomainModel.Validation;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
+using UseCases.RepositoryContract;
 
 namespace UseCases.Services
 {
     public class BookService
     {
-        public BookService()
+        private readonly BookValidation validation;
+        private readonly IBookRepository _repository;
+        public BookService(IBookRepository repository)
         {
+            validation = new BookValidation();
+            _repository = repository;
         }
 
-        public Task Create(int Id, string BookName, string authorName, string AddingDate)
+        public Task Create(string BookName, string authorName, string AddingDate)
         {
-            if (string.IsNullOrEmpty(BookName))
-                throw new NotAcceptableException("book Name is Empty");
 
-            if (string.IsNullOrEmpty(authorName))
-                throw new NotAcceptableException("authorName is Empty");
+            Book book = Book.Create(BookName, authorName, AddingDate);
 
-            if (!Regex.IsMatch(authorName, "^[a-zA-Z]+$"))
-                throw new NotAcceptableException("Invalid Author Name");
+            if (!validation.Validate(book).IsValid)
+                throw new NotAcceptableException("Invalid Book");
 
-
-            if (string.IsNullOrWhiteSpace(AddingDate))
-                throw new NotAcceptableException("Adding Date is Empty");
-
-            Book book = Book.Create(Id, BookName, authorName, AddingDate);
+            _repository.Add(book);
             return Task.CompletedTask;
         }
     }
