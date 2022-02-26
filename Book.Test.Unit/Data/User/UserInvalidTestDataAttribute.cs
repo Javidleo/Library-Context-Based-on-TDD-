@@ -2,7 +2,7 @@
 using System.Reflection;
 using Xunit.Sdk;
 
-namespace BookTest.Data.User
+namespace BookTest.Unit.Data.User
 {
     internal class UserInvalidTestDataAttribute : DataAttribute
     {
