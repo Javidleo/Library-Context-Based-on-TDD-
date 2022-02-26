@@ -10,7 +10,32 @@
       "ProjectGuid": "427cf016-d325-4eea-a74d-af4eccba6a64",
       "DisplayName": "DomainModel",
       "ColorIndex": 1
+    },
+    "7ef5c4ed-21fa-4c40-8770-31b94e99fc15": {
+      "ProjectGuid": "7ef5c4ed-21fa-4c40-8770-31b94e99fc15",
+      "DisplayName": "BookApplication",
+      "ColorIndex": 2
+    },
+    "d949a896-76d6-4ab5-9ae9-368efc6e9872": {
+      "ProjectGuid": "d949a896-76d6-4ab5-9ae9-368efc6e9872",
+      "DisplayName": "BookDataAccess",
+      "ColorIndex": 3
+    },
+    "a349f706-678b-4157-9fc0-19d1b5f02e4c": {
+      "ProjectGuid": "a349f706-678b-4157-9fc0-19d1b5f02e4c",
+      "DisplayName": "BookTest.Acceptance",
+      "ColorIndex": 4
+    },
+    "da386cc0-a0f1-4542-8b72-8d400e4125ca": {
+      "ProjectGuid": "da386cc0-a0f1-4542-8b72-8d400e4125ca",
+      "DisplayName": "BookTest.Integration",
+      "ColorIndex": 5
+    },
+    "52db8ac7-0012-4d39-b181-1adc88c7e294": {
+      "ProjectGuid": "52db8ac7-0012-4d39-b181-1adc88c7e294",
+      "DisplayName": "UseCases",
+      "ColorIndex": 6
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 7
 }

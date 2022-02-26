@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using System;
 
 namespace DomainModel.Validation
 {
@@ -7,11 +6,11 @@ namespace DomainModel.Validation
     {
         public UserValidation()
         {
-            RuleFor(i => i.Name).NotNull().NotEmpty().MaximumLength(50).Matches("^[a-zA-Z]+$");
-            RuleFor(i => i.Family).NotNull().NotEmpty().MaximumLength(50).Matches("^[a-zA-Z]+$");
-            RuleFor(i => i.Age).NotNull().InclusiveBetween(15, 70).WithMessage("Invalid Age");
-            RuleFor(i => i.NationalCode).MaximumLength(10).Must(ValidationBase.CheckNationalCode);
-            RuleFor(i => i.Email).EmailAddress().WithMessage("Invalid Email");
+            RuleFor(i => i.Name).NotEmpty().WithMessage("Name Should not be Empty").Matches(@"^[a-zA-Z\s]+$|^$").WithMessage("Name Should not have Numbers or Special Characters");
+            RuleFor(i => i.Family).NotEmpty().WithMessage("Family Should not be Empty").Matches(@"^[a-zA-Z\s]+$|^$").WithMessage("Family Should not have Numbers or Special Characters");
+            RuleFor(i => i.Age).InclusiveBetween(12, 70).WithMessage("Age Should be between 12,70");
+            RuleFor(i => i.NationalCode).NotEmpty().WithMessage("NationalCode Should not be Empty").Must(ValidationBase.CheckNationalCode).WithMessage("Invalid NationalCode");
+            RuleFor(i => i.Email).EmailAddress();
         }
 
     }

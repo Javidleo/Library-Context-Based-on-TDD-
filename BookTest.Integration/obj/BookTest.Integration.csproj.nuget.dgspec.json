@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookTest.Integration\\BookTest.Integration.csproj": {}
+    "E:\\Project\\TddBdd\\BookTest.Integration\\BookTest.Integration.csproj": {}
   },
   "projects": {
-    "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookDataAccess\\BookDataAccess.csproj": {
+    "E:\\Project\\TddBdd\\BookDataAccess\\BookDataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookDataAccess\\BookDataAccess.csproj",
+        "projectUniqueName": "E:\\Project\\TddBdd\\BookDataAccess\\BookDataAccess.csproj",
         "projectName": "BookDataAccess",
-        "projectPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookDataAccess\\BookDataAccess.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookDataAccess\\obj\\",
+        "projectPath": "E:\\Project\\TddBdd\\BookDataAccess\\BookDataAccess.csproj",
+        "packagesPath": "C:\\Users\\Javid\\.nuget\\packages\\",
+        "outputPath": "E:\\Project\\TddBdd\\BookDataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Javid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -31,11 +32,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Projects\\Main Project\\test driven development\\TddBdd\\DomainModel\\DomainModel.csproj": {
-                "projectPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\DomainModel\\DomainModel.csproj"
+              "E:\\Project\\TddBdd\\DomainModel\\DomainModel.csproj": {
+                "projectPath": "E:\\Project\\TddBdd\\DomainModel\\DomainModel.csproj"
               },
-              "E:\\Projects\\Main Project\\test driven development\\TddBdd\\UseCases\\UseCases.csproj": {
-                "projectPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\UseCases\\UseCases.csproj"
+              "E:\\Project\\TddBdd\\UseCases\\UseCases.csproj": {
+                "projectPath": "E:\\Project\\TddBdd\\UseCases\\UseCases.csproj"
               }
             }
           }
@@ -49,6 +50,22 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -59,24 +76,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookTest.Integration\\BookTest.Integration.csproj": {
+    "E:\\Project\\TddBdd\\BookTest.Integration\\BookTest.Integration.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookTest.Integration\\BookTest.Integration.csproj",
+        "projectUniqueName": "E:\\Project\\TddBdd\\BookTest.Integration\\BookTest.Integration.csproj",
         "projectName": "BookTest.Integration",
-        "projectPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookTest.Integration\\BookTest.Integration.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookTest.Integration\\obj\\",
+        "projectPath": "E:\\Project\\TddBdd\\BookTest.Integration\\BookTest.Integration.csproj",
+        "packagesPath": "C:\\Users\\Javid\\.nuget\\packages\\",
+        "outputPath": "E:\\Project\\TddBdd\\BookTest.Integration\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Javid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -90,8 +113,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookDataAccess\\BookDataAccess.csproj": {
-                "projectPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\BookDataAccess\\BookDataAccess.csproj"
+              "E:\\Project\\TddBdd\\BookDataAccess\\BookDataAccess.csproj": {
+                "projectPath": "E:\\Project\\TddBdd\\BookDataAccess\\BookDataAccess.csproj"
               }
             }
           }
@@ -105,6 +128,32 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.2, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.11.0, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -115,24 +164,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Projects\\Main Project\\test driven development\\TddBdd\\DomainModel\\DomainModel.csproj": {
+    "E:\\Project\\TddBdd\\DomainModel\\DomainModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\DomainModel\\DomainModel.csproj",
+        "projectUniqueName": "E:\\Project\\TddBdd\\DomainModel\\DomainModel.csproj",
         "projectName": "DomainModel",
-        "projectPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\DomainModel\\DomainModel.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\DomainModel\\obj\\",
+        "projectPath": "E:\\Project\\TddBdd\\DomainModel\\DomainModel.csproj",
+        "packagesPath": "C:\\Users\\Javid\\.nuget\\packages\\",
+        "outputPath": "E:\\Project\\TddBdd\\DomainModel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Javid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -157,6 +212,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[10.3.6, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -167,24 +228,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Projects\\Main Project\\test driven development\\TddBdd\\UseCases\\UseCases.csproj": {
+    "E:\\Project\\TddBdd\\UseCases\\UseCases.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\UseCases\\UseCases.csproj",
+        "projectUniqueName": "E:\\Project\\TddBdd\\UseCases\\UseCases.csproj",
         "projectName": "UseCases",
-        "projectPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\UseCases\\UseCases.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\UseCases\\obj\\",
+        "projectPath": "E:\\Project\\TddBdd\\UseCases\\UseCases.csproj",
+        "packagesPath": "C:\\Users\\Javid\\.nuget\\packages\\",
+        "outputPath": "E:\\Project\\TddBdd\\UseCases\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Javid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -198,8 +265,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "E:\\Projects\\Main Project\\test driven development\\TddBdd\\DomainModel\\DomainModel.csproj": {
-                "projectPath": "E:\\Projects\\Main Project\\test driven development\\TddBdd\\DomainModel\\DomainModel.csproj"
+              "E:\\Project\\TddBdd\\DomainModel\\DomainModel.csproj": {
+                "projectPath": "E:\\Project\\TddBdd\\DomainModel\\DomainModel.csproj"
               }
             }
           }
@@ -223,7 +290,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

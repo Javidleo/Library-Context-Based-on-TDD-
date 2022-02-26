@@ -9,3 +9,4 @@ E:\Project\TddBdd\DomainModel\obj\Debug\net6.0\DomainModel.csproj.CoreCompileInp
 E:\Project\TddBdd\DomainModel\obj\Debug\net6.0\DomainModel.dll
 E:\Project\TddBdd\DomainModel\obj\Debug\net6.0\ref\DomainModel.dll
 E:\Project\TddBdd\DomainModel\obj\Debug\net6.0\DomainModel.pdb
+E:\Project\TddBdd\DomainModel\obj\Debug\net6.0\DomainModel.csproj.AssemblyReference.cache

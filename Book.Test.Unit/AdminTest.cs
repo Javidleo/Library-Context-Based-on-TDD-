@@ -23,172 +23,97 @@ namespace BookTest.Unit
             validation = new AdminValidation();
         }
 
-        [Fact, Trait("Admin", "validation")]
-        public void AdminVaidation_VaidatingNullName_ShouldHaveError()
+        [Theory, Trait("Admin", "validation")]
+        [InlineData("", "rezaie", "11/12/1370", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "Name Should not be Empty")]
+        [InlineData("ali123", "rezaie", "11/12/1370", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "Name Should not have Numbers or Special Characters")]
+        [InlineData("ali@", "rezaie", "11/12/1370", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "Name Should not have Numbers or Special Characters")]
+        public void AdminValidation_ValidatingName_ThrowExcpectedMessage(string name, string family, string dateofbirth, string nationalcode, string username, string email, string passwords, string errorMessage)
         {
-            var admin = Admin.Create("", "family", "11/10/1395", "12341234", "username", "email", "password");
+            var admin = Admin.Create(name, family, dateofbirth, nationalcode, username, email, passwords);
             var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(user => user.Name);
+            result.ShouldHaveValidationErrorFor(admin => admin.Name).WithErrorMessage(errorMessage);
         }
 
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_validatingNotNullName_ShouldNotHaveError()
+        [Theory, Trait("Admin", "validation")]
+        [InlineData("ali", "", "11/12/1370", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "Family Should not be Empty")]
+        [InlineData("ali", "re1zied", "11/12/1370", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "Family Should not have Numbers or Special Characters")]
+        [InlineData("ali", "red#wer", "11/12/1370", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "Family Should not have Numbers or Special Characters")]
+        public void AdminValidation_ValidatingFamily_ThrowExcpectedMessage(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password, string errorMessage)
         {
-            var admin = Admin.Create("name", "family", "11/10/1395", "12341234", "username", "email", "password");
+            var admin = Admin.Create(name, family, dateofbirth, nationalcode, username, email, password);
             var result = validation.TestValidate(admin);
-            result.ShouldNotHaveValidationErrorFor(admin => admin.Name);
+            result.ShouldHaveValidationErrorFor(admin => admin.Family).WithErrorMessage(errorMessage);
         }
 
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingNullFamily_ShouldHaveError()
+        [Theory, Trait("Admin", "validation")]
+        [InlineData("ali", "rezie", "", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "DateofBirth Should not be Empty")]
+        [InlineData("ali", "rezie", "11/14/1366", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "Invalid DateofBirth")]
+        [InlineData("ali", "rezie", "11/11/13555", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "Invalid DateofBirth")]
+        [InlineData("ali", "rezie", "45/12/1355", "0317144073", "user123", "javidleo.ef@gmail.com", "javid123@$", "Invalid DateofBirth")]
+        public void AdminValidation_ValidatingDateofBirth_ThrowExcpectedMessage(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password, string errorMessage)
         {
-            var admin = Admin.Create("name", "", "", "", "", "", "123123");
+            var admin = Admin.Create(name, family, dateofbirth, nationalcode, username, email, password);
             var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.Family);
+            result.ShouldHaveValidationErrorFor(admin => admin.DateofBirth).WithErrorMessage(errorMessage);
         }
 
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingNotNullFamily_ShouldNotHaveError()
+        [Theory, Trait("Admin", "validation")]
+        [InlineData("ali", "rezie", "11/12/1399", "", "user123", "javidleo.ef@gmail.com", "javid123@$", "NationalCode Should not be Empty")]
+        [InlineData("ali", "rezie", "11/12/1399", "1111111111", "user123", "javidleo.ef@gmail.com", "javid123@$", "Invalid NationalCode")]
+        [InlineData("ali", "rezie", "11/12/1399", "1239128301212312", "user123", "javidleo.ef@gmail.com", "javid123@$", "Invalid NationalCode")]
+        [InlineData("ali", "rezie", "11/12/1399", "1231231354", "user123", "javidleo.ef@gmail.com", "javid123@$", "Invalid NationalCode")]
+        public void AdminValidation_ValidatingNationalCode_ThrowExceptedMessage(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password, string errorMessage)
         {
-            var admin = Admin.Create("name", "family", "age", "nationalcode", "username", "email", "password");
+            var admin = Admin.Create(name, family, dateofbirth, nationalcode, username, email, password);
             var result = validation.TestValidate(admin);
-            result.ShouldNotHaveValidationErrorFor(admin => admin.Family);
+            result.ShouldHaveValidationErrorFor(admin => admin.NationalCode).WithErrorMessage(errorMessage);
         }
 
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingNullDateOfBirth_ShouldHaveError()
+        [Theory, Trait("Admin", "validation")]
+        [InlineData("ali", "rezie", "11/12/1399", "0990076016", "", "javidleo.ef@gmail.com", "javid123@$", "UserName Should not be Empty")]
+        [InlineData("ali", "rezie", "11/12/1399", "0990076016", "ali%$@", "javidleo.ef@gmail.com", "javid123@$", "Invalid UserName")]
+        [InlineData("ali", "rezie", "11/12/1399", "0990076016", "AliBarati", "javidleo.ef@gmail.com", "javid123@$", "Invalid UserName")]
+        public void AdminVlidation_ValidateingUserName_ThrowExcpectedMessage(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password, string errorMessage)
         {
-            var admin = Admin.Create("name", "family", "", "nationalcode", "username", "email", "password");
+            var admin = Admin.Create(name, family, dateofbirth, nationalcode, username, email, password);
             var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.DateofBirth);
+            result.ShouldHaveValidationErrorFor(admin => admin.UserName).WithErrorMessage(errorMessage);
         }
 
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidtion_ValidatingNotNullDateOfBirth_ShouldNotHaveError()
+        [Theory, Trait("Admin", "validation")]
+        [InlineData("ali", "rezie", "11/12/1399", "0317144073", "javid", "Javidlerw$432@", "javid123@$")]
+        [InlineData("ali", "rezie", "11/12/1399", "0317144073", "javid", "", "javid123@$")]
+        public void AdminValidation_ValidatingEmail_ThrowExcpectedMessage(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password)
         {
-            var admin = Admin.Create("name", "family", "11/12/1344", "nationalcode", "username", "email", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldNotHaveValidationErrorFor(admin => admin.DateofBirth);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingInvalidDateofBirth_ShouldHaveError()
-        {
-            var admin = Admin.Create("name", "family", "13141/12412/3453", "nationalcode", "username", "email", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.DateofBirth);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingNullNationalCode_ShouldHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "", "username", "email", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.NationalCode);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidateingValidNationalCode_ShouldNotHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "0317144073", "username", "email", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldNotHaveValidationErrorFor(admin => admin.NationalCode);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingInvalidNationalCode_ShouldHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "124er214123", "username", "email", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.NationalCode);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingNullUserName_ShouldHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "0317144073", "", "email", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.UserName);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingValidUserName_ShouldNotHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "0317144073", "username", "email", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldNotHaveValidationErrorFor(admin => admin.UserName);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingInvalidUserName_ShouldHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "0317144073", "ffdfSDF$34", "email", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.UserName);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingValidEmail_ShouldNotHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "0317144073", "username", "javidle.fd@gmail.com", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldNotHaveValidationErrorFor(admin => admin.Email);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidationI_ValidatingNullEmail_ShouldHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "0317144073", "username", "", "password");
+            var admin = Admin.Create(name, family, dateofbirth, nationalcode, username, email, password);
             var result = validation.TestValidate(admin);
             result.ShouldHaveValidationErrorFor(admin => admin.Email);
         }
 
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingInvalidEmail_ShouldHaveError()
+        [Theory, Trait("Admin", "validation")]
+        [InlineData("ali", "rezie", "11/12/1399", "0317144073", "javid", "javidleo.ef@gmail.com", "", "Password Should not be Null")]
+        [InlineData("ali", "rezie", "11/12/1399", "0317144073", "javid", "javidleo.ef@gmail.com", "1231234324234", "week Password")]
+        [InlineData("ali", "rezie", "11/12/1399", "0317144073", "javid", "javidleo.ef@gmail.com", "g#13G", "week Password")]
+        public void AdminValidation_ValidatingPassword_ThrowExcpectedMessage(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password, string errorMessage)
         {
-            var admin = Admin.Create("name", "family", "", "0317144073", "username", "dfsdf223#3124", "password");
-            var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.Email);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingNullPassword_ShouldHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "0317144073", "username", "email", "");
+            var admin = Admin.Create(name, family, dateofbirth, nationalcode, username, email, password);
             var result = validation.TestValidate(admin);
             result.ShouldHaveValidationErrorFor(admin => admin.Password);
         }
 
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingValidPassword_ShouldNotHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "0317144073", "username", "email", "123#2fsda");
-            var result = validation.TestValidate(admin);
-            result.ShouldNotHaveValidationErrorFor(admin => admin.Password);
-        }
-
-        [Fact, Trait("Admin", "validation")]
-        public void AdminValidation_ValidatingInvalidPassword_ShouldHaveError()
-        {
-            var admin = Admin.Create("name", "family", "", "0317144073", "username", "email", "pass");
-            var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.Password);
-        }
-
-        [Theory, Trait("Admin", "create")]
-        [AdminValidTestData]
-        public void CreateAdmin_CheckForCreatingSuccessfully_ReturnRanToCompletionStatusMessage(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password)
-        {
-            var result = service.Create(name, family, dateofbirth, nationalcode, username, email, password);
-            result.Status.ToString().Should().Be("RanToCompletion");
-        }
-
-        [Theory, Trait("Admin", "create")]
+        [Theory, Trait("Admin", "validation")]
         [AdminTestInvalidData]
-        public void CreateAdmin_CheckForCreateWhenSendInvalidDataToService_ThrowsNotAcceptableException(string name, string family, string nationalCode, string dateofbirth, string username, string email, string password)
+        public void CreateAdmin_CheckForCreatingWithInvalidValues_ThrowNotAcceptableException(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password)
         {
-            void result() => service.Create(name, family, dateofbirth, nationalCode, username, email, password);
+            void result() => service.Create(name, family, dateofbirth, nationalcode, username, email, password);
             Assert.Throws<NotAcceptableException>(result);
+        }
+
+        [Fact, Trait("Admin", "validation")]
+        public void CreateAdmin_CheckForCreatingSuccessfully_ReturnSuccessStatusTask()
+        {
+            var result = service.Create("ali", "rezie", "11/12/1399", "0317144073", "javid", "javidleo.ef@gmail.com", "123@#javid");
+            result.Status.ToString().Should().Be("RanToCompletion");
         }
     }
 }
