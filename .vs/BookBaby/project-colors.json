@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "7d33418a-2e8f-40da-a073-8fe0450ad2d4": {
+      "ProjectGuid": "7d33418a-2e8f-40da-a073-8fe0450ad2d4",
+      "DisplayName": "BookTest.Unit",
+      "ColorIndex": 0
+    },
+    "427cf016-d325-4eea-a74d-af4eccba6a64": {
+      "ProjectGuid": "427cf016-d325-4eea-a74d-af4eccba6a64",
+      "DisplayName": "DomainModel",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
