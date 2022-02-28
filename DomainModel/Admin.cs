@@ -12,6 +12,7 @@
         public string Email { get; private set; }
         public string Password { get; private set; }
 
+        public Admin() {}
         Admin(string name, string family, string dateofBirth, string nationalCode, string userName, string email, string password)
         {
             Name = name;

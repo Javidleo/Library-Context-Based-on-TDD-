@@ -1,4 +1,5 @@
 ﻿using DomainModel;
+using System.Collections.Generic;
 using System.Linq;
 using UseCases.RepositoryContract;
 
@@ -7,8 +8,8 @@ namespace BookDataAccess.Repository
     public class UserRepository : IUserRepository
     {
         private BookContext _context;
-        public UserRepository()
-        => _context = new BookContext();
+        public UserRepository(BookContext context)
+        => _context = context;
 
         public void Add(User user)
         {
@@ -17,5 +18,17 @@ namespace BookDataAccess.Repository
         }
         public User FindByName(string name)
         => _context.Users.FirstOrDefault(i => i.Name == name);
+
+        public List<User> GetAll()
+        => _context.Users.ToList();
+
+        public User FindById(int id)
+        => _context.Users.FirstOrDefault(i => i.Id == id);
+
+        public void Update(User user)
+        {
+            _context.Update(user);
+            _context.SaveChanges();
+        }
     }
 }

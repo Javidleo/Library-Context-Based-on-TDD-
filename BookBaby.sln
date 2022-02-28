@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases", "UseCases\UseCas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookTest.Unit", "Book.Test.Unit\BookTest.Unit.csproj", "{7D33418A-2E8F-40DA-A073-8FE0450AD2D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookTest.Acceptance", "BookTest.Acceptance\BookTest.Acceptance.csproj", "{A349F706-678B-4157-9FC0-19D1B5F02E4C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookTest.Integration", "BookTest.Integration\BookTest.Integration.csproj", "{DA386CC0-A0F1-4542-8B72-8D400E4125CA}"
 EndProject
 Global
@@ -43,10 +41,6 @@ Global
 		{7D33418A-2E8F-40DA-A073-8FE0450AD2D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D33418A-2E8F-40DA-A073-8FE0450AD2D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D33418A-2E8F-40DA-A073-8FE0450AD2D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A349F706-678B-4157-9FC0-19D1B5F02E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A349F706-678B-4157-9FC0-19D1B5F02E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A349F706-678B-4157-9FC0-19D1B5F02E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A349F706-678B-4157-9FC0-19D1B5F02E4C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DA386CC0-A0F1-4542-8B72-8D400E4125CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DA386CC0-A0F1-4542-8B72-8D400E4125CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA386CC0-A0F1-4542-8B72-8D400E4125CA}.Release|Any CPU.ActiveCfg = Release|Any CPU

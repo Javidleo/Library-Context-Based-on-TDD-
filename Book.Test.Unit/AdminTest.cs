@@ -4,6 +4,7 @@ using DomainModel;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
+using Moq;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.Services;
@@ -15,11 +16,13 @@ namespace BookTest.Unit
     {
         private readonly AdminService service;
         private readonly AdminValidation validation;
-        private readonly IAdminRepository _repository;
+        private readonly Mock<IAdminRepository> adminRepositoryMock;
+        private readonly MockRepository mockRepository;
         public AdminTest()
         {
-            _repository = new AdminRepository();
-            service = new AdminService(_repository);
+            mockRepository = new MockRepository(MockBehavior.Loose);
+            adminRepositoryMock= mockRepository.Create<IAdminRepository>();
+            service = new AdminService(adminRepositoryMock.Object);
             validation = new AdminValidation();
         }
 
@@ -105,15 +108,17 @@ namespace BookTest.Unit
         [AdminTestInvalidData]
         public void CreateAdmin_CheckForCreatingWithInvalidValues_ThrowNotAcceptableException(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password)
         {
-            void result() => service.Create(name, family, dateofbirth, nationalcode, username, email, password);
+            void result() => service.Create(name, family ,dateofbirth, nationalcode,username, email,password);
             Assert.Throws<NotAcceptableException>(result);
         }
 
         [Fact, Trait("Admin", "validation")]
         public void CreateAdmin_CheckForCreatingSuccessfully_ReturnSuccessStatusTask()
         {
+            
             var result = service.Create("ali", "rezie", "11/12/1399", "0317144073", "javid", "javidleo.ef@gmail.com", "123@#javid");
-            result.Status.ToString().Should().Be("RanToCompletion");
+            Admin admin = Admin.Create("ali", "rezie", "11/12/1399", "0317144073", "javid", "javidleo.ef@gmail.com", "123@#javid");
+            adminRepositoryMock.Verify(i => i.Add(It.Is<Admin>(i => i.Name == "ali")),Times.Once());
         }
     }
 }

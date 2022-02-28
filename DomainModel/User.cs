@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace DomainModel
 {
     public class User
@@ -18,8 +20,18 @@ namespace DomainModel
             NationalCode = nationalCode;
             Email = email;
         }
+
+        public User() { }
+
         public static User Create(string name, string family, int age, string nationalCode, string email)
         => new(name, family, age, nationalCode, email);
 
+        public void Modify(string name, string family, int age, string email)
+        {
+            Name = name;
+            Family =family;
+            Age = age;
+            Email = email;
+        }
     }
 }

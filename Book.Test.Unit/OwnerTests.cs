@@ -3,7 +3,9 @@ using DomainModel;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
+using Moq;
 using UseCases.Exceptions;
+using UseCases.RepositoryContract;
 using UseCases.Services;
 using Xunit;
 
@@ -13,9 +15,13 @@ namespace BookTest.Unit
     {
         private readonly OwnerService _service;
         private readonly OwnerValidation _validation;
+        private readonly MockRepository mockRepository;
+        private readonly Mock<IOwnerRepository> ownerRepoMock;
         public OwnerTests()
         {
-            _service = new OwnerService();
+            mockRepository = new MockRepository(MockBehavior.Loose);
+            ownerRepoMock = mockRepository.Create<IOwnerRepository>();
+            _service = new OwnerService(ownerRepoMock.Object);
             _validation = new OwnerValidation();
         }
 

@@ -1,26 +1,43 @@
 ﻿using DomainModel;
 using DomainModel.Validation;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
+using UseCases.RepositoryContract;
 
 namespace UseCases.Services
 {
-    public class OwnerService
+    public class OwnerService :IOwnerService
     {
         private readonly OwnerValidation validation;
-        public OwnerService()
+        private readonly IOwnerRepository _repository;
+        public OwnerService(IOwnerRepository repository)
         {
             validation = new OwnerValidation();
+            _repository = repository;
         }
 
-        public Task Create(string Name, string Family, string NationalCode, string PhoneNumber, string UserName, string Password)
+        public Task Create(string name, string family ,string nationalCode, string phoneNumber, string userName, string password)
         {
-            Owner buyer = Owner.Create(Name, Family, NationalCode, PhoneNumber, UserName, Password);
+            Owner owner = Owner.Create(name, family, nationalCode, phoneNumber, userName, password);
 
-            if (!validation.Validate(buyer).IsValid)
-                throw new NotAcceptableException("Invalid Buyer");
+            if (!validation.Validate(owner).IsValid)
+                throw new NotAcceptableException("Invalid Owner");
 
+            _repository.Add(owner);
             return Task.CompletedTask;
+
+        }
+
+        public Task<List<Owner>> GetAll()
+        => Task.FromResult(_repository.GetAll());
+
+        public Task<Owner> FindById(int id)
+        {
+            Owner owner = _repository.FindById(id);
+            if (owner is null)
+                throw new NotFoundExcpetion("Not Founded");
+            return Task.FromResult(owner);
         }
     }
 }

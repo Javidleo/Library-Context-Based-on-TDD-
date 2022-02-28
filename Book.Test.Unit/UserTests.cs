@@ -3,6 +3,7 @@ using DomainModel;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
+using Moq;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.Services;
@@ -14,11 +15,13 @@ namespace BookTest.Unit
     {
         private readonly UserService service;
         private readonly UserValidation validation;
-        private readonly IUserRepository _repository;
+        private readonly Mock<IUserRepository> userRepositoryMock;
+        private readonly MockRepository mockRepository;
         public UserTests()
         {
-            _repository = new UserRepository();
-            service = new UserService(_repository);
+            mockRepository = new MockRepository(MockBehavior.Loose);
+            userRepositoryMock = mockRepository.Create<IUserRepository>();
+            service = new UserService(userRepositoryMock.Object);
             validation = new UserValidation();
         }
 
@@ -93,7 +96,6 @@ namespace BookTest.Unit
         {
             void result() => service.Create("ali", "reza@#", 15, "0990076016", "javidleo.ef@gmial.com");
             Assert.Throws<NotAcceptableException>(result);
-        }
-
+        } 
     }
 }

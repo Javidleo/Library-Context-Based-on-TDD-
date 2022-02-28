@@ -3,6 +3,7 @@ using DomainModel;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
+using Moq;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.Services;
@@ -14,11 +15,13 @@ namespace BookTest.Unit
     {
         private readonly BookService service;
         private readonly BookValidation validation;
-        private readonly IBookRepository _repository;
+        private readonly Mock<IBookRepository> _bookrepoMock;
+        private readonly MockRepository mockRepository;
         public BookTestes()
         {
-            _repository = new BookRepository();
-            service = new BookService(_repository);
+            mockRepository = new MockRepository(MockBehavior.Loose);
+            _bookrepoMock = mockRepository.Create<IBookRepository>();
+            service = new BookService(_bookrepoMock.Object);
             validation = new BookValidation();
         }
 

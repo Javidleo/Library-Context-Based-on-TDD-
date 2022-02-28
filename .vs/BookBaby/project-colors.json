@@ -35,7 +35,17 @@
       "ProjectGuid": "52db8ac7-0012-4d39-b181-1adc88c7e294",
       "DisplayName": "UseCases",
       "ColorIndex": 6
+    },
+    "6a284003-4db3-4ec0-aed0-2b3416e3fde7": {
+      "ProjectGuid": "6a284003-4db3-4ec0-aed0-2b3416e3fde7",
+      "DisplayName": "Book.Acceptance",
+      "ColorIndex": 7
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
-  "NextColorIndex": 7
+  "NextColorIndex": 8
 }

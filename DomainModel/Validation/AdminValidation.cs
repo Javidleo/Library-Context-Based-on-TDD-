@@ -2,7 +2,7 @@
 
 namespace DomainModel.Validation
 {
-    public class AdminValidation : AbstractValidator<Admin>
+    public class AdminValidation : AbstractValidator<Admin> 
     {
         public AdminValidation()
         {
