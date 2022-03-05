@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace UseCases.Services
+namespace UseCases.ServiceContract
 {
     public interface IOwnerService
     {

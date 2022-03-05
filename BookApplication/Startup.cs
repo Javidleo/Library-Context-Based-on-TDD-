@@ -31,7 +31,9 @@ namespace BookApplication
             services.AddTransient<IBookRepository, BookRepository>();
             // Service Contract
             services.AddTransient<IAdminService, AdminService>();
-
+            services.AddTransient<IOwnerService, OwnerService>();
+            services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -101,7 +101,7 @@ namespace BookTest.Unit
         {
             var admin = Admin.Create(name, family, dateofbirth, nationalcode, username, email, password);
             var result = validation.TestValidate(admin);
-            result.ShouldHaveValidationErrorFor(admin => admin.Password);
+            result.ShouldHaveValidationErrorFor(admin => admin.Password).WithErrorMessage(errorMessage);
         }
 
         [Theory, Trait("Admin", "validation")]

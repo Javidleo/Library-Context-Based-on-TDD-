@@ -19,6 +19,7 @@
             UserName = username;
             Password = password;
         }
+        public Owner() { }
 
         public static Owner Create(string name, string family, string nationalcode, string phonenumber, string username, string password)
             => new(name, family, nationalcode, phonenumber, username, password);

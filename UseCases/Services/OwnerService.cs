@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
+using UseCases.ServiceContract;
 
 namespace UseCases.Services
 {

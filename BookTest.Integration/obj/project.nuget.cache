@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "+4I7tvCRGW+lkeX/XDOcr/PkDc+vIme7yu0Fqn8dYuml2BYGfme+ZysQTgeV2zuM/CD/RM0bM1ecF3K6LFjI7Q==",
+  "dgSpecHash": "MkFshkxaDJyz83V+QQSB72KLzgO4sBXbT4kUh3wmxbAnMcIraezeObYt+C0GNEPzEW1/j+tqmc3ERRbIWdVtLw==",
   "success": true,
   "projectFilePath": "E:\\Project\\TddBdd\\BookTest.Integration\\BookTest.Integration.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Javid\\.nuget\\packages\\coverlet.collector\\3.1.0\\coverlet.collector.3.1.0.nupkg.sha512",
+    "C:\\Users\\Javid\\.nuget\\packages\\fluentassertions\\6.5.1\\fluentassertions.6.5.1.nupkg.sha512",
     "C:\\Users\\Javid\\.nuget\\packages\\fluentvalidation\\10.3.6\\fluentvalidation.10.3.6.nupkg.sha512",
     "C:\\Users\\Javid\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",
     "C:\\Users\\Javid\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

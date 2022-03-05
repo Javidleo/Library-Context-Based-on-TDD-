@@ -9,6 +9,7 @@
       "BookTest.Integration/1.0.0": {
         "dependencies": {
           "BookDataAccess": "1.0.0",
+          "FluentAssertions": "6.5.1",
           "Microsoft.EntityFrameworkCore": "6.0.2",
           "Microsoft.NET.Test.Sdk": "16.11.0",
           "coverlet.collector": "3.1.0",
@@ -20,6 +21,17 @@
         }
       },
       "coverlet.collector/3.1.0": {},
+      "FluentAssertions/6.5.1": {
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "4.7.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/FluentAssertions.dll": {
+            "assemblyVersion": "6.5.1.0",
+            "fileVersion": "6.5.1.0"
+          }
+        }
+      },
       "FluentValidation/10.3.6": {
         "runtime": {
           "lib/net6.0/FluentValidation.dll": {
@@ -1537,6 +1549,13 @@
       "sha512": "sha512-YzYqSRrjoP5lULBhTDcTOjuM4IDPPi6PhFsl4w8EI4WdZhE6llt7E38Tg4CHyrS+QKwyu1+9OwkdDgluOdoBTw==",
       "path": "coverlet.collector/3.1.0",
       "hashPath": "coverlet.collector.3.1.0.nupkg.sha512"
+    },
+    "FluentAssertions/6.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-hdY/upTFYEc7SFJQ+pKsMZP1J5bELh9feB8kXzk6FKAGE/tvAPDzHd76Z+nIYdgnqkocthaDUq+tKPsGD0um2A==",
+      "path": "fluentassertions/6.5.1",
+      "hashPath": "fluentassertions.6.5.1.nupkg.sha512"
     },
     "FluentValidation/10.3.6": {
       "type": "package",

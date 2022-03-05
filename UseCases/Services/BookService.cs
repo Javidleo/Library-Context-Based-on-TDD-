@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
+using UseCases.ServiceContract;
 
 namespace UseCases.Services
 {
-    public class BookService
+    public class BookService : IBookService
     {
         private readonly BookValidation validation;
         private readonly IBookRepository _repository;
