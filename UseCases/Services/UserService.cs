@@ -36,7 +36,7 @@ namespace UseCases.Services
         {
             User user = _repository.FindById(id);
             if (user == null)
-                throw new NotFoundExcpetion("Not Founede");
+                throw new NotFoundException("Not Founede");
             return Task.FromResult(user);
         }
     }

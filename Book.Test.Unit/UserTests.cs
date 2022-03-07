@@ -1,5 +1,4 @@
-﻿using BookDataAccess.Repository;
-using DomainModel;
+﻿using BookTest.Unit.Data.User;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
@@ -26,61 +25,61 @@ namespace BookTest.Unit
         }
 
         [Theory, Trait("User", "validation")]
-        [InlineData("", "usefamily", 15, "0990076016", "javidleo.ef@gmail.com", "Name Should not be Empty")]
-        [InlineData("name13", "usefamily", 15, "0990076016", "javidleo.ef@gmail.com", "Name Should not have Numbers or Special Characters")]
-        [InlineData("name#213", "usefamily", 15, "0990076016", "javidleo.ef@gmail.com", "Name Should not have Numbers or Special Characters")]
-        public void UserValidation_ValidatingName_ThrowExcepteedMessage(string name, string family, int age, string nationalcode, string email, string errorMessage)
+        [InlineData("", "Name Should not be Empty")]
+        [InlineData("name13", "Name Should not have Numbers or Special Characters")]
+        [InlineData("name#2", "Name Should not have Numbers or Special Characters")]
+        public void UserValidation_ValidatingName_ThrowExcepteedMessage(string name, string errorMessage)
         {
-            var user = User.Create(name, family, age, nationalcode, email);
+            var user = new UserBuilder().WithName(name).Build();
             var result = validation.TestValidate(user);
             result.ShouldHaveValidationErrorFor(user => user.Name).WithErrorMessage(errorMessage);
         }
 
         [Theory, Trait("User", "validation")]
-        [InlineData("user", "", 15, "0990076016", "javidleo.ef@gmail.com", "Family Should not be Empty")]
-        [InlineData("user", "fam324liy", 15, "0990076016", "javidleo.ef@gmail.com", "Family Should not have Numbers or Special Characters")]
-        [InlineData("user", "family324$123", 15, "0990076016", "javidleo.ef@gmail.com", "Family Should not have Numbers or Special Characters")]
-        public void UserValidation_ValidatingFamily_ThrowExcpectedMessage(string name, string family, int age, string nationalcode, string email, string errorMessage)
+        [InlineData("", "Family Should not be Empty")]
+        [InlineData("fam324liy", "Family Should not have Numbers or Special Characters")]
+        [InlineData("family34$3", "Family Should not have Numbers or Special Characters")]
+        public void UserValidation_ValidatingFamily_ThrowExcpectedMessage(string family, string errorMessage)
         {
-            var user = User.Create(name, family, age, nationalcode, email);
+            var user = new UserBuilder().WithFamily(family).Build();
             var result = validation.TestValidate(user);
             result.ShouldHaveValidationErrorFor(user => user.Family).WithErrorMessage(errorMessage);
         }
 
         [Theory, Trait("User", "validation")]
-        [InlineData("user", "usefamily", 11, "0990076016", "javidleo.ef@gmail.com", "Age Should be between 12,70")]
-        [InlineData("user", "usefamily", 99, "0990076016", "javidleo.ef@gmail.com", "Age Should be between 12,70")]
-        public void UserValidation_ValidatingAge_ThrowExcpectedMessage(string name, string family, int age, string nationalCode, string email, string errorMessage)
+        [InlineData(11, "Age Should be between 12,70")]
+        [InlineData(99, "Age Should be between 12,70")]
+        public void UserValidation_ValidatingAge_ThrowExcpectedMessage(int age, string errorMessage)
         {
-            var user = User.Create(name, family, age, nationalCode, email);
+            var user = new UserBuilder().WithAge(age).Build();
             var result = validation.TestValidate(user);
             result.ShouldHaveValidationErrorFor(user => user.Age).WithErrorMessage(errorMessage);
         }
 
         [Theory, Trait("User", "validation")]
-        [InlineData("user", "usefamily", 45, "", "javidleo.ef@gmail.com", "NationalCode Should not be Empty")]
-        [InlineData("user", "usefamily", 45, "1111111111", "javidleo.ef@gmail.com", "Invalid NationalCode")]
-        [InlineData("user", "usefamily", 45, "6541321635216158", "javidleo.ef@gmail.com", "Invalid NationalCode")]
-        [InlineData("user", "usefamily", 45, "4651461", "javidleo.ef@gmail.com", "Invalid NationalCode")]
-        [InlineData("user", "usefamily", 45, "651", "javidleo.ef@gmail.com", "Invalid NationalCode")]
-        [InlineData("user", "usefamily", 45, "4516816514", "javidleo.ef@gmail.com", "Invalid NationalCode")]
+        [InlineData("", "NationalCode Should not be Empty")]
+        [InlineData("1111111111", "Invalid NationalCode")]
+        [InlineData("65413216352", "Invalid NationalCode")]
+        [InlineData("4651461", "Invalid NationalCode")]
+        [InlineData("651", "Invalid NationalCode")]
+        [InlineData("4516816514", "Invalid NationalCode")]
 
-        public void UserValidation_ValidatingNationalCode_ThrowExcpectedMessage(string name, string family, int age, string nationalcode, string email, string errorMessage)
+        public void UserValidation_ValidatingNationalCode_ThrowExcpectedMessage(string nationalcode, string errorMessage)
         {
-            var user = User.Create(name, family, age, nationalcode, email);
+            var user = new UserBuilder().WithNationalCode(nationalcode).Build();
             var result = validation.TestValidate(user);
             result.ShouldHaveValidationErrorFor(user => user.NationalCode).WithErrorMessage(errorMessage);
         }
 
         [Theory, Trait("User", "validation")]
-        [InlineData("user", "usefamily", 45, "0990076016", "javidsjf!!~~##@@")]
-        [InlineData("user", "usefamily", 45, "0990076016", "32fsdf")]
-        [InlineData("user", "usefamily", 45, "0990076016", "@@f;lsidjfew")]
-        [InlineData("user", "usefamily", 45, "0990076016", "jaldifj2343123@")]
-        [InlineData("user", "usefamily", 45, "0990076016", "javidslf3.krjew023")]
-        public void UserValidation_ValidatingEmail_ThrowExcpectedException(string name, string family, int age, string nationalcode, string email)
+        [InlineData("javidsjf!!~~##@@")]
+        [InlineData("32fsdf")]
+        [InlineData("@@f;lsidjfew")]
+        [InlineData("jaldifj2343123@")]
+        [InlineData("javidslf3.krjew023")]
+        public void UserValidation_ValidatingEmail_ThrowExcpectedException(string email)
         {
-            var user = User.Create(name, family, age, nationalcode, email);
+            var user = new UserBuilder().WithEmail(email).Build();
             var result = validation.TestValidate(user);
             result.ShouldHaveValidationErrorFor(user => user.Email);
         }
@@ -96,6 +95,6 @@ namespace BookTest.Unit
         {
             void result() => service.Create("ali", "reza@#", 15, "0990076016", "javidleo.ef@gmial.com");
             Assert.Throws<NotAcceptableException>(result);
-        } 
+        }
     }
 }

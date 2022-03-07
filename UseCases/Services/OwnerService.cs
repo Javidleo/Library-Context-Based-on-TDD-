@@ -37,7 +37,7 @@ namespace UseCases.Services
         {
             Owner owner = _repository.FindById(id);
             if (owner is null)
-                throw new NotFoundExcpetion("Not Founded");
+                throw new NotFoundException("Not Founded");
             return Task.FromResult(owner);
         }
     }

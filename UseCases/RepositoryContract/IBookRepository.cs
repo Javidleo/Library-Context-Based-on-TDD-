@@ -7,6 +7,8 @@ namespace UseCases.RepositoryContract
     {
         void Add(Book book);
         List<Book> GetAll();
-        Book FindById(int id);
+        Book Find(string name);
+        Book Find(int id);
+        List<Book> FindByAddingDate(string dateofAdding);
     }
 }

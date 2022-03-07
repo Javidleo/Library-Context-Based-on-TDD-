@@ -10,7 +10,7 @@
         public string UserName { get; private set; }
         public string Password { get; private set; }
 
-        Owner(string name, string family, string nationalcode, string phonenumber, string username, string password)
+        Owner(string name, string family,string nationalcode, string phonenumber, string username, string password)
         {
             Name = name;
             Family = family;

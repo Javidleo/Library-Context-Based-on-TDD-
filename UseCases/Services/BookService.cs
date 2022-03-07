@@ -35,7 +35,7 @@ namespace UseCases.Services
 
         public Task<Book> FindById(int id)
         {
-            Book book = _repository.FindById(id);
+            Book book = _repository.Find(id);
             if (book == null)
                 throw new KeyNotFoundException("Not Founded");
             return Task.FromResult(book);

@@ -146,3 +146,5 @@ E:\Project\TddBdd\BookTest.Integration\obj\Debug\net6.0\ref\BookTest.Integration
 E:\Project\TddBdd\BookTest.Integration\obj\Debug\net6.0\BookTest.Integration.pdb
 E:\Project\TddBdd\BookTest.Integration\obj\Debug\net6.0\BookTest.Integration.genruntimeconfig.cache
 E:\Project\TddBdd\BookTest.Integration\bin\Debug\net6.0\FluentAssertions.dll
+E:\Project\TddBdd\BookTest.Integration\bin\Debug\net6.0\Castle.Core.dll
+E:\Project\TddBdd\BookTest.Integration\bin\Debug\net6.0\Moq.dll

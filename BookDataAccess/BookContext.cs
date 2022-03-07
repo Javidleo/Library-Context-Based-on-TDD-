@@ -16,7 +16,7 @@ namespace BookDataAccess
 
         public DbSet<User> Users { get; set; }
         public DbSet<Admin> Admin { get; set; }
-        public DbSet<Book> Book { get; set; }
+        public DbSet<Book> Books { get; set; }
         public DbSet<Owner> Owner { get; set; }
 
 

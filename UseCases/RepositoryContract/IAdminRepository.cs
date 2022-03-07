@@ -9,5 +9,8 @@ namespace UseCases.RepositoryContract
         List<Admin> GetAll();
         bool DoesExist(string nationalCode);
         Admin GetByNationalCode(string nationalCode);
+        void Delete(Admin admin);
+        Admin Find(int id);
+        Admin Find(string name);
     }
 }

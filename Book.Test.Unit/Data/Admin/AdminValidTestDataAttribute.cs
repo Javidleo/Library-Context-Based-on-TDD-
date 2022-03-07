@@ -8,11 +8,10 @@ namespace BookTest.Unit.Data.Admin
     {
         public override IEnumerable<object[]> GetData(MethodInfo testMethod)
         {
-            yield return new object[] { "ali", "rezaie", "11/2/91", "0584418035", "ali123", "123123" };
 
-            yield return new object[] { "reza", "mohamadi", "0317144073", "11/12/1399", "javidleo", "javidleo.ef@gmial.com", "javidl123#21" };
-            yield return new object[] { "Alireza", "Javadi", "0477786431", "29/12/1350", "rezand", "reza.sl@yahoo.com", "123@35%fdf" };
-            yield return new object[] { "mohamad", "Navidi", "0988309009", "11/10/1340", "mohadamdf", "mohamad@cloud.com", "res1@2323:fdsfS" };
+            yield return new object[] { "Javid", "mohamadi", "0317144073", "11/12/1399", "javidle1o", "javidleo.ef@gmial.com", "javidl123#21" };
+            yield return new object[] { "Alireza", "Javadi", "0477786431", "29/12/1350", "re2zand", "reza.sl@gmail.com", "123@35%fdf" };
+            yield return new object[] { "Javid", "Navidi", "0988309009", "11/10/1340", "moh4adamdf", "mohamad@gmail.com", "res1@2323:fdsfS" };
         }
     }
 

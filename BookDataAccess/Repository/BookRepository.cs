@@ -13,14 +13,20 @@ namespace BookDataAccess.Repository
 
         public void Add(Book book)
         {
-            _context.Book.Add(book);
+            _context.Books.Add(book);
             _context.SaveChanges();
         }
 
         public List<Book> GetAll()
-        => _context.Book.ToList();
+        => _context.Books.ToList();
 
-        public Book FindById(int id)
-        => _context.Book.FirstOrDefault(i => i.Id == id);
+        public Book Find(int id)
+        => _context.Books.FirstOrDefault(i => i.Id == id);
+
+        public Book Find(string name)
+        => _context.Books.FirstOrDefault(x => x.Name == name);
+
+        public List<Book> FindByAddingDate(string dateofAdding)
+        => _context.Books.Where(i=> i.DateofAdding == dateofAdding).ToList();
     }
 }

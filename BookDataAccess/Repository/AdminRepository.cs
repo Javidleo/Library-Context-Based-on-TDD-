@@ -24,5 +24,17 @@ namespace BookDataAccess.Repository
 
         public Admin GetByNationalCode(string nationalCode)
         => _context.Admin.FirstOrDefault(i => i.NationalCode == nationalCode);
+
+        public void Delete(Admin admin)
+        {
+            _context.Admin.Remove(admin);
+            _context.SaveChanges();
+        }
+
+        public Admin Find(int id)
+        => _context.Admin.FirstOrDefault(i=> i.Id == id);
+
+        public Admin Find(string name)
+        => _context.Admin.FirstOrDefault(i => i.Name == name);
     }
 }

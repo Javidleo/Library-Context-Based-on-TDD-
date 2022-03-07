@@ -3,19 +3,12 @@ using BookDataAccess.Repository;
 using DomainModel;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UseCases.RepositoryContract;
 using Xunit;
 
 namespace BookTest.Integration.Test
 {
-    public class UserTests: PersistTest<BookContext>
+    public class UserTests : PersistTest<BookContext>
     {
         private readonly IUserRepository _repository;
         private readonly BookContext _context;
@@ -33,18 +26,18 @@ namespace BookTest.Integration.Test
             optionBuilder.UseSqlServer("Server=DESKTOP-MONHQ70;Database=bookdb;Trusted_Connection=True;");
             return optionBuilder;
         }
-        
-        [Fact,Trait("User","Repository")]
+
+        [Fact, Trait("User", "Repository")]
         public void CreateUser_CheckForCreatingSuccessfully()
         {
             User user = User.Create("name", "family", 15, "123123123", "javidleo.ef@gmail.com");
             _repository.Add(user);
-            var excpected =_repository.FindByName(user.Name);
+            var excpected = _repository.FindByName(user.Name);
 
             user.Should().BeEquivalentTo(excpected);
         }
 
-        [Fact, Trait("User","Repository")]
+        [Fact, Trait("User", "Repository")]
         public void GetAllUsers_CheckForDoingWell()
         {
             User user = User.Create("name", "family", 15, "1231231", "email");
@@ -53,7 +46,7 @@ namespace BookTest.Integration.Test
             userList[0].Should().BeEquivalentTo(user);
         }
 
-        [Fact, Trait("User","Repository")]
+        [Fact, Trait("User", "Repository")]
         public void FindByName_CheckForWorkingWell()
         {
             User user = User.Create("name", "family", 15, "1231231", "email");
@@ -63,5 +56,7 @@ namespace BookTest.Integration.Test
 
             actual.Should().BeEquivalentTo(user);
         }
+
+
     }
 }
