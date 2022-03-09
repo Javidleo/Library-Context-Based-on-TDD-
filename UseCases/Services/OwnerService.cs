@@ -6,7 +6,7 @@ using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
 
-namespace UseCases.Services
+namespace UseCases.Exceptions
 {
     public class OwnerService :IOwnerService
     {

@@ -8,6 +8,6 @@ namespace UseCases.ServiceContract
     {
         Task Create(string name, string authorName, string DateofAdding);
         Task<List<Book>> GetAll();
-        Task<Book> FindById(int id);
+        Task<Book> GetById(int id);
     }
 }

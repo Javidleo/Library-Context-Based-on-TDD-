@@ -4,9 +4,10 @@ using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using Moq;
+using System.Collections.Generic;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
-using UseCases.Services;
+using UseCases.Exceptions;
 using Xunit;
 
 namespace BookTest.Unit;
@@ -119,14 +120,20 @@ public class UserTests
         Assert.Throws<NotFoundException>(result);
     }
 
-    [Fact, Trait("User", "delete")]
-    public void DeleteUser_DeleteWhenUserHaveBooks_ThrowNotAcceptableException()
-    {
-        var user = User.Create("ali", "rezaie", 18, "0738845736", "javidleo.ef@gmail.com", 1);
-        _userRepositoryMock.Setup(i => i.FindWithBooks(1)).Returns(user);
-        void result() => service.Delete(1);
-        Assert.Throws<NotAcceptableException>(result);
-    }
+    //[Fact, Trait("User", "delete")]
+    //public void DeleteUser_DeleteWhenUserHaveBooks_ThrowNotAcceptableException()
+    //{
+    //    var interaction = Interaction.Create(1, 1, 1);
+
+    //    var user = new UserDummy()
+    //    {
+    //        Id = 1,
+    //        Interactions = new List<Interaction>() { interaction}
+    //    };
+    //    _userRepositoryMock.Setup(i => i.FindWithBooks(1)).Returns(user);
+    //    void result() => service.Delete(1);
+    //    Assert.Throws<NotAcceptableException>(result);
+    //}
 
     [Fact, Trait("User", "update")]
     public void UpdateUser_CheckForWorkingWell_ReturnSuccessTaskStatus()
@@ -137,6 +144,15 @@ public class UserTests
 
         _userRepositoryMock.Verify(i => i.Update(user), Times.Once());
         result.Status.ToString().Should().Be("RanToCompletion");
+    }
+
+    [Fact, Trait("User", "update")]
+    public void UpdateUser_CheckForDuplicateEmail_ThrowNotAcceptableException()
+    {
+        _userRepositoryMock.Setup(i => i.DoesEmailExist("javidleo.ef@gmail.com")).Returns(true);
+        void result() => service.Update(1, "ali", "rezaie", 18, "javidleo.ef@gmail.com", 1);
+
+        Assert.Throws<DuplicateException>(result);
     }
 
     [Fact, Trait("User", "Update")]

@@ -1,26 +1,26 @@
 using BookTest.Unit.Data.BookTestData;
+using DomainModel;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using Moq;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
-using UseCases.Services;
 using Xunit;
 
 namespace BookTest.Unit;
 
-public class BookTestes
+public class BookTests
 {
     private readonly BookService service;
     private readonly BookValidation validation;
-    private readonly Mock<IBookRepository> _bookrepoMock;
+    private readonly Mock<IBookRepository> _bookRepositoryMock;
     private readonly MockRepository mockRepository;
-    public BookTestes()
+    public BookTests()
     {
         mockRepository = new MockRepository(MockBehavior.Loose);
-        _bookrepoMock = mockRepository.Create<IBookRepository>();
-        service = new BookService(_bookrepoMock.Object);
+        _bookRepositoryMock = mockRepository.Create<IBookRepository>();
+        service = new BookService(_bookRepositoryMock.Object);
         validation = new BookValidation();
     }
 
@@ -74,5 +74,34 @@ public class BookTestes
     {
         void result() => service.Create(name, authorName, dateofAdding);
         Assert.Throws<NotAcceptableException>(result);
+    }
+
+    [Fact, Trait("Book","update")]
+    public void UpdateBook_UpdateWithInvalidBookId_ThrowNotFoundException()
+    {
+        void result() => service.Update(Id: 1, name: "ali", authorName: "alireza", dateofAdding: "11/12/1399");
+        Assert.Throws<NotFoundException>(result);
+    }
+ 
+    [Fact, Trait("Book","update")]
+    public void UpdateBook_UpdateWithDuplicateName_ThrowNotAcceptableException()
+    {
+        var book = Book.Create("azadi123", "javidleo", "11/11/1311");
+
+        _bookRepositoryMock.Setup(i => i.DoesNameExist("ali")).Returns(true);
+        _bookRepositoryMock.Setup(i => i.Find(1)).Returns(book);
+
+        void result() => service.Update(Id: 1, name: "ali", authorName: "alireza", dateofAdding: "11/12/1399");
+        Assert.Throws<DuplicateException>(result);
+    }
+
+    [Fact, Trait("Book","update")]
+    public void UpdateBook_CheckForWorkingWell_ReturnSuccessTaskStatus()
+    {
+        var book = Book.Create("ali", "alireza", "11/12/1399");
+        _bookRepositoryMock.Setup(i => i.Find(1)).Returns(book);
+
+        var result = service.Update(Id: 1, name: "ali", authorName: "alireza", dateofAdding: "11/12/1399");
+        result.Status.ToString().Should().Be("RanToCompletion");
     }
 }

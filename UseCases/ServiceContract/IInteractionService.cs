@@ -5,5 +5,6 @@ namespace UseCases.ServiceContract
     public interface IInteractionService
     {
         Task Borrow(int userId, int bookId, int adminId);
+        Task Delete(int Id);
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
-using UseCases.Services;
+using UseCases.Exceptions;
 
 namespace BookApplication
 {
@@ -29,11 +29,14 @@ namespace BookApplication
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAdminRepository, AdminRepository>();
             services.AddTransient<IBookRepository, BookRepository>();
+            services.AddTransient<IInteractionRepository, InteractionRepository>();
+            services.AddTransient<IOwnerRepository, OwnerRepository>();
             // Service Contract
             services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<IOwnerService, OwnerService>();
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IInteractionService, InteractionService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

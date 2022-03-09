@@ -5,12 +5,30 @@ using UseCases.RepositoryContract;
 
 namespace BookDataAccess.Repository;
 
-internal class InteractionRepository : IInteractionRepository
+public class InteractionRepository : IInteractionRepository
 {
     private readonly BookContext _context;
     public InteractionRepository(BookContext context)
     => _context = context;
 
+    public void Add(Interaction interaction)
+    {
+        _context.Interactions.Add(interaction);
+        _context.SaveChanges();
+    }
+
+    public Interaction Find(int id)
+    => _context.Interactions.FirstOrDefault(i => i.Id == id);
+
     public List<Interaction> FindByUser(int userId)
     => _context.Interactions.Where(i => i.UserId == userId).ToList();
+
+    public void Update(Interaction interaction)
+    {
+        _context.Interactions.Update(interaction);
+        _context.SaveChanges();
+    }
+
+    public List<Interaction> GetAll()
+    => _context.Interactions.ToList();
 }

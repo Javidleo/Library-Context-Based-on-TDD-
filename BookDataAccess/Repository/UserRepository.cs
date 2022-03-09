@@ -40,4 +40,7 @@ public class UserRepository : IUserRepository
         _context.Remove(user);
         _context.SaveChanges();
     }
+
+    public bool DoesEmailExist(string email)
+    => _context.Users.Any(i => i.Email == email);
 }

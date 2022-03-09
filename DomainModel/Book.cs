@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DomainModel
 {
@@ -12,6 +13,8 @@ namespace DomainModel
 
         public string DateofAdding { get; private set; }
 
+        public bool InUse { get; private set; }
+
         public virtual List<Interaction> Interactions { get; private set; }
 
         Book(string Name, string authorName, string DateofAdding)
@@ -19,10 +22,17 @@ namespace DomainModel
             this.Name = Name;
             this.authorName = authorName;
             this.DateofAdding = DateofAdding;
+            InUse = false;
         }
 
         public static Book Create(string Name, string authorName, string DateofAdding)
         => new(Name, authorName, DateofAdding);
+
+        public void Available()
+        => this.InUse = false;
+
+        public void UnAvailable()
+        => this.InUse = true;
 
     }
 }

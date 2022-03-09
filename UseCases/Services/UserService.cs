@@ -6,13 +6,12 @@ using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
 
-namespace UseCases.Services
+namespace UseCases.Exceptions
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IAdminRepository _adminRepository;
-        private readonly IBookRepository _bookRepository;
         private readonly UserValidation validation;
         public UserService(IUserRepository userRepository, IAdminRepository adminRepository)
         {
@@ -49,8 +48,8 @@ namespace UseCases.Services
             if (user is null)
                 throw new NotFoundException("User Not Founded");
 
-            if (user.Interactions.Count is not 0)
-                throw new NotAcceptableException("Cannot Delete User how Also Have Books");
+            //if (user.Interactions is null)
+            //    throw new NotAcceptableException("Cannot Delete User how Also Have Books");
 
             _userRepository.Delete(user);
             return Task.CompletedTask;
@@ -62,10 +61,14 @@ namespace UseCases.Services
             if (!validation.Validate(User.Create(name, family, age, dummyNationalCode, email,1)).IsValid)
                 throw new NotAcceptableException("Invalid Informations");
 
+            if (_userRepository.DoesEmailExist(email))
+                throw new DuplicateException("Duplicate Email");
+
             var user = _userRepository.Find(id);
             if (user is null)
                 throw new NotFoundException("User Not Found");
 
+            
             user.Modify(name, family, age, email, adminid);
 
             _userRepository.Update(user);

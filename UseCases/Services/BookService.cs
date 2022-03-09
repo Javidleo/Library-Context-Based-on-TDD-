@@ -1,12 +1,13 @@
 ﻿using DomainModel;
 using DomainModel.Validation;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
 
-namespace UseCases.Services
+namespace UseCases.Exceptions
 {
     public class BookService : IBookService
     {
@@ -33,12 +34,25 @@ namespace UseCases.Services
         public Task<List<Book>> GetAll()
         => Task.FromResult(_repository.GetAll());
 
-        public Task<Book> FindById(int id)
+        public Task<Book> GetById(int id)
         {
             Book book = _repository.Find(id);
             if (book == null)
                 throw new KeyNotFoundException("Not Founded");
             return Task.FromResult(book);
+        }
+
+        public Task Update(int Id, string name, string authorName, string dateofAdding)
+        {
+            if (_repository.DoesNameExist(name) is true)
+                throw new DuplicateException("Duplicate Name");
+
+            var book = _repository.Find(Id);
+            if (book is null)
+                throw new NotFoundException("Book Not Founded");
+
+            _repository.Update(book);
+            return Task.CompletedTask;
         }
     }
 }

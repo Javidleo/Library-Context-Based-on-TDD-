@@ -10,5 +10,7 @@ namespace UseCases.RepositoryContract
         Book Find(string name);
         Book Find(int id);
         List<Book> FindByAddingDate(string dateofAdding);
+        bool DoesNameExist(string name);
+        void Update(Book book);
     }
 }

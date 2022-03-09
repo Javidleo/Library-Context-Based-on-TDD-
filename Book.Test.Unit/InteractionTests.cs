@@ -1,9 +1,9 @@
 ﻿using DomainModel;
 using FluentAssertions;
 using Moq;
+using System.Collections.Generic;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
-using UseCases.Services;
 using Xunit;
 
 namespace BookTest.Unit;
@@ -14,6 +14,7 @@ public class InteractionTests
     private readonly Mock<IUserRepository> _userRepositoryMock;
     private readonly Mock<IBookRepository> _bookRepositoryMock;
     private readonly Mock<IAdminRepository> _adminRepositoryMock;
+    private readonly Mock<IInteractionRepository> _interactionRepositoryMock;
     private readonly MockRepository mockRepository;
     public InteractionTests()
     {
@@ -21,7 +22,8 @@ public class InteractionTests
         _userRepositoryMock = mockRepository.Create<IUserRepository>();
         _bookRepositoryMock = mockRepository.Create<IBookRepository>();
         _adminRepositoryMock = mockRepository.Create<IAdminRepository>();
-        service = new InteractionService(_userRepositoryMock.Object, _adminRepositoryMock.Object, _bookRepositoryMock.Object);
+        _interactionRepositoryMock = mockRepository.Create<IInteractionRepository>();
+        service = new InteractionService(_userRepositoryMock.Object, _adminRepositoryMock.Object, _bookRepositoryMock.Object,_interactionRepositoryMock.Object);
     }
 
     [Fact, Trait("Interaction", "Borrow")]
@@ -65,5 +67,36 @@ public class InteractionTests
         var result = service.Borrow(userId: 1, bookId: 2, adminId: 3);
 
         result.Status.ToString().Should().Be("RanToCompletion");
+    }
+
+    [Fact, Trait("Interaction", "logicalDelete")]
+    public void DeleteInteraction_SendInvalidInteractionId_ThrowNotFoundException()
+    {
+        void result() => service.Delete(1);
+        Assert.Throws<NotFoundException>(result);
+    }
+
+    [Fact, Trait("Interaction","logicalDelete")]
+    public void DeleteInteraction_CheckForWorkingWell_ReturnSuccessTaskStatus()
+    {
+        var interaction = Interaction.Create(userId: 1, bookId:2,adminId:3);
+        _interactionRepositoryMock.Setup(i => i.Find(1)).Returns(interaction);
+        _bookRepositoryMock.Setup(i => i.Find(2)).Returns(Book.Create("name", "authorName", "11/12/1399"));
+
+        var result = service.Delete(Id: 1);
+        result.Status.ToString().Should().Be("RanToCompletion");
+        interaction.IsDeleted.Should().BeTrue();
+    }
+    
+    [Fact, Trait("Interaction","GetAll")]
+    public void GetAllInteractions_CheckForWorkingWell_ReturnSpecificResult()
+    {
+        List<Interaction> interactions = new();
+        interactions.Add(Interaction.Create(1, 1, 1));
+        interactions.Add(Interaction.Create(2, 2, 2));
+
+        _interactionRepositoryMock.Setup(i => i.GetAll()).Returns(interactions);
+        var result = service.GetAll();
+        result.Should().BeEquivalentTo(interactions);
     }
 }

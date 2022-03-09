@@ -12,13 +12,14 @@ namespace DomainModel
 
         public int AdminId { get; private set; }
 
-        private DateTime  Date { get; set; }
-        private bool IsDeleted { get; set; }
+        public DateTime Date { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public virtual User User { get; private set; }
 
         public virtual Book Book { get; set; }
-        
+
         public virtual Admin Admin { get; private set; }
 
         Interaction(int userId, int bookId, int adminId)
@@ -32,5 +33,8 @@ namespace DomainModel
 
         public static Interaction Create(int userId, int bookId, int adminId)
         => new Interaction(userId, bookId, adminId);
+
+        public void LogicalDelete()
+        => this.IsDeleted = true;
     }
 }

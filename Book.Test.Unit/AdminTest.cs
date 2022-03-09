@@ -5,7 +5,7 @@ using FluentValidation.TestHelper;
 using Moq;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
-using UseCases.Services;
+using UseCases.Exceptions;
 using Xunit;
 
 namespace BookTest.Unit;

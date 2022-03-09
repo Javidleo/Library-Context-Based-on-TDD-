@@ -12,5 +12,6 @@ namespace UseCases.RepositoryContract
         User FindWithBooks(int Id);
         void Update(User user);
         void Delete(User user);
+        bool DoesEmailExist(string email);
     }
 }

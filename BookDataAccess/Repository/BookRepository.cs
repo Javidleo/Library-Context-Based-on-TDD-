@@ -28,4 +28,13 @@ public class BookRepository : IBookRepository
 
     public List<Book> FindByAddingDate(string dateofAdding)
     => _context.Books.Where(i => i.DateofAdding == dateofAdding).ToList();
+
+    public bool DoesNameExist(string name)
+    => _context.Books.Any(i => i.Name == name);
+
+    public void Update(Book book)
+    {
+        _context.Books.Update(book);
+        _context.SaveChanges();
+    }
 }
