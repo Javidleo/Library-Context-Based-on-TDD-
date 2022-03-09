@@ -41,7 +41,7 @@ namespace testAPIProject.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <param name="Id"></param>
-        /// <returns></returns>
+        /// <returns>200 Ok Status Code</returns>
         [HttpPut]
         public async Task<IActionResult> Put(PersonDTO dto, int Id)
         {

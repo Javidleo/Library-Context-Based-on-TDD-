@@ -1,4 +1,6 @@
-﻿namespace DomainModel
+﻿using System.Collections.Generic;
+
+namespace DomainModel
 {
     public class Admin
     {
@@ -11,6 +13,7 @@
         public string UserName { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
+        public virtual List<Interaction> Interactions { get; private set; }
 
         private Admin() { }
 

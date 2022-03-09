@@ -2,7 +2,7 @@
 using System.Reflection;
 using Xunit.Sdk;
 
-namespace BookTest.Unit.Data.Admin
+namespace BookTest.Unit.Data.AdminTestData
 {
     public class AdminTestInvalidDataAttribute : DataAttribute
     {
