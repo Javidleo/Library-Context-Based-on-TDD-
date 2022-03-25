@@ -26,11 +26,16 @@ namespace UseCases.Exceptions
 
         public Task Borrow(int userId, int bookId, int adminId)
         {
+            var book = _bookRepository.Find(bookId);
+            if (book is null)
+                throw new NotFoundException("Book Not Founded");
+
+            if (book.InUse is true)
+                throw new NotAcceptableException("Cannot Borrow UnAvailable Book");
+
+
             if (_userRepository.Find(userId) is null)
                 throw new NotFoundException("User Not Founded");
-
-            if (_bookRepository.Find(bookId) is null)
-                throw new NotFoundException("Book Not Founded");
 
             if (_adminRepository.Find(adminId) is null)
                 throw new NotFoundException("Admin Not Founded");
@@ -64,7 +69,7 @@ namespace UseCases.Exceptions
             return Task.CompletedTask;
         }
 
-        private void MakeBookAvailable(int bookId)
+        public void MakeBookAvailable(int bookId)
         {
             var book = _bookRepository.Find(bookId);
             book.Available();

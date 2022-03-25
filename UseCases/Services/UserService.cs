@@ -1,5 +1,6 @@
 ﻿using DomainModel;
 using DomainModel.Validation;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
@@ -75,5 +76,13 @@ namespace UseCases.Exceptions
             return Task.CompletedTask;
         }
 
+        public Task<User> GetByName(string name)
+        {
+            var user = _userRepository.Find(name);
+            if (user is null)
+                throw new NotFoundException("User Not Founded");
+
+            return Task.FromResult(user);
+        }
     }
 }

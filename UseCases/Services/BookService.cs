@@ -19,13 +19,15 @@ namespace UseCases.Exceptions
             _repository = repository;
         }
 
-        public Task Create(string BookName, string authorName, string AddingDate)
+        public Task Create(string bookName, string authorName, string addingDate)
         {
-
-            Book book = Book.Create(BookName, authorName, AddingDate);
+            var book = Book.Create(bookName, authorName, addingDate);
 
             if (!validation.Validate(book).IsValid)
                 throw new NotAcceptableException("Invalid Book");
+
+            if (_repository.DoesNameExist(bookName))
+                throw new DuplicateException("Duplicate Book");
 
             _repository.Add(book);
             return Task.CompletedTask;
@@ -38,7 +40,16 @@ namespace UseCases.Exceptions
         {
             Book book = _repository.Find(id);
             if (book == null)
-                throw new KeyNotFoundException("Not Founded");
+                throw new NotFoundException("Not Founded");
+            return Task.FromResult(book);
+        }
+
+        public Task<Book> GetByName(string name)
+        {
+            var book = _repository.Find(name);
+            if (book is null)
+                throw new NotFoundException("Book Not Founded");
+
             return Task.FromResult(book);
         }
 
@@ -52,6 +63,18 @@ namespace UseCases.Exceptions
                 throw new NotFoundException("Book Not Founded");
 
             _repository.Update(book);
+            return Task.CompletedTask;
+        }
+
+        public Task Delete(int Id)
+        {
+            var book = _repository.Find(Id);
+            if (book is null)
+                throw new NotFoundException("Book Not Founded");
+
+            if (book.InUse is true)
+                throw new NotAcceptableException("Cannot Delete InUse Book");
+
             return Task.CompletedTask;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using DomainModel;
 using DomainModel.Validation;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
@@ -25,8 +26,14 @@ namespace UseCases.Exceptions
             if (!validation.Validate(admin).IsValid)
                 throw new NotAcceptableException("Invalid Inputs");
 
-            if (_repository.DoesExist(admin.NationalCode))
-                throw new NotAcceptableException("User not Exist in Db");
+            if (_repository.DoesNationalCodeExist(admin.NationalCode))
+                throw new DuplicateException("Duplicate NationalCode");
+
+            if (_repository.DoesUsernameExist(admin.UserName))
+                throw new DuplicateException("Duplicate Username");
+
+            if (_repository.DoesEmailExist(admin.Email))
+                throw new DuplicateException("Duplicate Email");
 
             _repository.Add(admin);
             return Task.CompletedTask;
@@ -53,6 +60,29 @@ namespace UseCases.Exceptions
                 throw new NotFoundException("Admin Not Found");
 
             _repository.Delete(admin);
+            return Task.CompletedTask;
+        }
+
+        public Task Update(int id, string name, string family, string dateofBirth, string username, string email, string password)
+        {
+
+            var admin = _repository.Find(id);
+
+            if (admin is null)
+                throw new NotFoundException("Not Founded");
+
+            if (_repository.DoesEmailExist(email))
+                throw new DuplicateException("Duplicate Email");
+
+            if (_repository.DoesUsernameExist(username))
+                throw new DuplicateException("Duplicate Username");
+
+            admin.Modify(name, family, dateofBirth, username, email, password);
+
+            if (!validation.Validate(admin).IsValid)
+                throw new NotAcceptableException("Invalid Admin");
+
+            _repository.Update(admin);
             return Task.CompletedTask;
         }
     }

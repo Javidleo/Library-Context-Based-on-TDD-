@@ -1,27 +1,35 @@
 ﻿using BookTest.Unit.Data.OwnerTestData;
+using BookTest.Unit.TestDoubles;
+using DomainModel;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using Moq;
+using NSubstitute;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
-using UseCases.Exceptions;
 using Xunit;
 
 namespace BookTest.Unit;
 
 public class OwnerTests
 {
-    private readonly OwnerService _service;
+    private OwnerService _service;
     private readonly OwnerValidation _validation;
-    private readonly MockRepository mockRepository;
-    private readonly Mock<IOwnerRepository> ownerRepoMock;
+    private readonly OwnerFakeRepository _repository;
+    private IOwnerRepository _mockRepository;
     public OwnerTests()
     {
-        mockRepository = new MockRepository(MockBehavior.Loose);
-        ownerRepoMock = mockRepository.Create<IOwnerRepository>();
-        _service = new OwnerService(ownerRepoMock.Object);
+        _repository = new OwnerFakeRepository();
+        _service = new OwnerService(_repository);
         _validation = new OwnerValidation();
+        
+    }
+
+    private void Setup()
+    {
+        _mockRepository = Substitute.For<IOwnerRepository>();
+        _service = new OwnerService(_mockRepository);
     }
 
     [Theory, Trait("Owner", "validation")]
@@ -88,10 +96,25 @@ public class OwnerTests
         result.ShouldHaveValidationErrorFor(owner => owner.PhoneNumber).WithErrorMessage(errorMessage);
     }
 
+    [Fact, Trait("Owner","create")]
+    public void CreateOwner_CheckForDuplicateNationalCode_ThrowDuplciateException()
+    {
+        var owner = new OwnerBuilder().Build();
+        _repository.SetValidNationalCode(owner.NationalCode);
+
+        void result() => _service.Create(owner.Name, owner.Family, owner.NationalCode, owner.PhoneNumber, owner.UserName, owner.Password);
+        Assert.Throws<DuplicateException>(result);
+    }
+
     [Fact, Trait("Owner", "create")]
     public void CreateOwner_CheckForCreatingSuccessFully_ReturnSuccessStatusTask()
     {
-        var result = _service.Create("name", "family", "0613575024", "09177044432", "user123", "javid123$$");
+        Setup();
+        var owner = new OwnerBuilder().Build();
+
+        var result = _service.Create(owner.Name, owner.Family, owner.NationalCode, owner.PhoneNumber, owner.UserName, owner.Password);
+
+        _mockRepository.Received(1).Add(Arg.Is<Owner>(i => i.NationalCode == owner.NationalCode));
         result.Status.ToString().Should().Be("RanToCompletion");
     }
 
@@ -102,4 +125,7 @@ public class OwnerTests
         void result() => _service.Create(name, family, nationalcode, phonenumber, username, password);
         Assert.Throws<NotAcceptableException>(result);
     }
+
+  
 }
+

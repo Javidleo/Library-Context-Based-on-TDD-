@@ -19,7 +19,7 @@ public class AdminRepository : IAdminRepository
     public List<Admin> GetAll()
     => _context.Admin.ToList();
 
-    public bool DoesExist(string nationalCode)
+    public bool DoesNationalCodeExist(string nationalCode)
     => _context.Admin.Any(i => i.NationalCode == nationalCode);
 
     public Admin GetByNationalCode(string nationalCode)
@@ -36,4 +36,16 @@ public class AdminRepository : IAdminRepository
 
     public Admin Find(string name)
     => _context.Admin.FirstOrDefault(i => i.Name == name);
+
+    public bool DoesUsernameExist(string username)
+    => _context.Admin.Any(i => i.UserName == username);
+
+    public bool DoesEmailExist(string email)
+    => _context.Admin.Any(i => i.Email == email);
+
+    public void Update(Admin admin)
+    {
+        _context.Update(admin);
+        _context.SaveChanges();
+    }
 }

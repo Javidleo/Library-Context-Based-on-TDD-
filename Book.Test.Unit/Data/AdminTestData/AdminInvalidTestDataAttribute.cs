@@ -4,7 +4,7 @@ using Xunit.Sdk;
 
 namespace BookTest.Unit.Data.AdminTestData
 {
-    public class AdminTestInvalidDataAttribute : DataAttribute
+    public class AdminInvalidTestDataAttribute : DataAttribute
     {
         public override IEnumerable<object[]> GetData(MethodInfo testMethod)
         {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DomainModel;
+﻿using DomainModel;
 
 namespace BookTest.Unit.Data.BookTestData;
 
@@ -12,7 +7,7 @@ public class BookBuilder
     private string _name = "raz";
     private string _authorName = "ali";
     private string _addingDate = "11/12/1399";
-
+    private bool _inUse = false;
     public BookBuilder WithName(string name)
     {
         _name = name;
@@ -28,9 +23,18 @@ public class BookBuilder
         _addingDate = addingDate;
         return this;
     }
-    public DomainModel.Book Build()
+    public BookBuilder IsUnavailable()
     {
-        DomainModel.Book book = DomainModel.Book.Create(_name, _authorName, _addingDate);
+        _inUse = true;
+        return this;
+    }
+    public Book Build()
+    {
+        Book book = Book.Create(_name, _authorName, _addingDate);
+        if (_inUse is true)
+            book.UnAvailable();
+        else
+            book.Available();
         return book;
     }
 }

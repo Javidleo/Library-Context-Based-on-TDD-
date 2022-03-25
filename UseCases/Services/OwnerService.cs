@@ -1,5 +1,6 @@
 ﻿using DomainModel;
 using DomainModel.Validation;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
@@ -25,9 +26,11 @@ namespace UseCases.Exceptions
             if (!validation.Validate(owner).IsValid)
                 throw new NotAcceptableException("Invalid Owner");
 
+            if (_repository.DoesNationalCodeExist(owner.NationalCode))
+                throw new DuplicateException("Duplicate NationalCode");
+
             _repository.Add(owner);
             return Task.CompletedTask;
-
         }
 
         public Task<List<Owner>> GetAll()
@@ -35,7 +38,7 @@ namespace UseCases.Exceptions
 
         public Task<Owner> FindById(int id)
         {
-            Owner owner = _repository.FindById(id);
+            Owner owner = _repository.Find(id);
             if (owner is null)
                 throw new NotFoundException("Not Founded");
             return Task.FromResult(owner);

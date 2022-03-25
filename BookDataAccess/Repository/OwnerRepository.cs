@@ -17,9 +17,27 @@ public class OwnerRepository : IOwnerRepository
         _context.SaveChanges();
     }
 
-    public Owner FindById(int id)
+    public void Delete(Owner owner)
+    {
+        _context.Remove(owner);
+        _context.SaveChanges();
+    }
+
+    public bool DoesNationalCodeExist(string nationalCode)
+    => _context.Owner.Any(i => i.NationalCode == nationalCode);
+
+    public Owner Find(int id)
     => _context.Owner.FirstOrDefault(i => i.Id == id);
+
+    public Owner Find(string name)
+    => _context.Owner.FirstOrDefault(i => i.Name == name);
 
     public List<Owner> GetAll()
     => _context.Owner.ToList();
+
+    public void Update(Owner owner)
+    {
+        _context.Update(owner);
+        _context.SaveChanges();
+    }
 }

@@ -31,4 +31,7 @@ public class InteractionRepository : IInteractionRepository
 
     public List<Interaction> GetAll()
     => _context.Interactions.ToList();
+
+    public List<Interaction> FindByBookId(int bookId)
+    => _context.Interactions.Where(i => i.BookId == bookId).ToList();
 }

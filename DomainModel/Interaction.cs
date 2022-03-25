@@ -12,7 +12,7 @@ namespace DomainModel
 
         public int AdminId { get; private set; }
 
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
 
         public bool IsDeleted { get; set; }
 
@@ -27,7 +27,7 @@ namespace DomainModel
             UserId = userId;
             BookId = bookId;
             AdminId = adminId;
-            Date = DateTime.Now;
+            Date = DateOnly.FromDateTime(DateTime.Now);
             IsDeleted = false;
         }
 

@@ -4,10 +4,8 @@ using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using Moq;
-using System.Collections.Generic;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
-using UseCases.Exceptions;
 using Xunit;
 
 namespace BookTest.Unit;
@@ -90,13 +88,14 @@ public class UserTests
         result.ShouldHaveValidationErrorFor(user => user.Email);
     }
 
-    [Fact, Trait("User", "create")]
-    public void CreateUser_CheckforCreatingSuccessfully_ReturnSuccessTaskStatus()
+    [Theory, Trait("User", "create")]
+    [UserValidTestData]
+    public void CreateUser_CheckforCreatingSuccessfully_ReturnSuccessTaskStatus(UserValidTestObject user)
     {
-        var result = service.Create("ali", "rezaie", 16, "0990076016", "javidleo.ef@gmail.com", 1);
+        var result = service.Create(user.name, user.family,user.age,user.nationalCode,user.email,user.adminId);
         result.Status.ToString().Should().Be("RanToCompletion");
     }
-    [Fact, Trait("User", "Create")]
+    [Fact, Trait("User", "create")]
     public void CreateUser_CheckForCreatingWithInvalidValues_ThrowNotAcceptableExcpetion()
     {
         void result() => service.Create("ali", "reza@#", 15, "0990076016", "javidleo.ef@gmial.com", 1);
@@ -106,11 +105,12 @@ public class UserTests
     [Fact, Trait("User", "delete")]
     public void DeleteUser_CheckForWorkingWell_VerifingSuccessfully()
     {
-        var user = User.Create("ali", "rezaie", 15, "0738845736", "javidleo.ef@gmail.com", 1);
+        var user = new UserBuilder().Build();
         _userRepositoryMock.Setup(i => i.FindWithBooks(1)).Returns(user);
 
         var result = service.Delete(1);
         _userRepositoryMock.Verify(i => i.Delete(user), Times.Once());
+        result.Status.ToString().Should().Be("RanToCompletion");
     }
 
     [Fact, Trait("User", "delete")]
@@ -120,30 +120,16 @@ public class UserTests
         Assert.Throws<NotFoundException>(result);
     }
 
-    //[Fact, Trait("User", "delete")]
-    //public void DeleteUser_DeleteWhenUserHaveBooks_ThrowNotAcceptableException()
-    //{
-    //    var interaction = Interaction.Create(1, 1, 1);
-
-    //    var user = new UserDummy()
-    //    {
-    //        Id = 1,
-    //        Interactions = new List<Interaction>() { interaction}
-    //    };
-    //    _userRepositoryMock.Setup(i => i.FindWithBooks(1)).Returns(user);
-    //    void result() => service.Delete(1);
-    //    Assert.Throws<NotAcceptableException>(result);
-    //}
-
     [Fact, Trait("User", "update")]
     public void UpdateUser_CheckForWorkingWell_ReturnSuccessTaskStatus()
     {
-        var user = User.Create("ali", "rezaie", 18, "0738845736", "javidleo.ef@gmail.com", 1);
+        var user = new UserBuilder().Build();
         _userRepositoryMock.Setup(i => i.Find(1)).Returns(user);
-        var result = service.Update(1, "ali", "rezaie", 18, "javidleo.ef@gmail.com", 1);
+        var result = service.Update(1, "reza", "mohamadi", 18, "rezaahmadi.ef@gmail.com", 1);
 
         _userRepositoryMock.Verify(i => i.Update(user), Times.Once());
-        result.Status.ToString().Should().Be("RanToCompletion");
+        user.Name.Should().Be("reza");
+        user.Family.Should().Be("mohamadi");
     }
 
     [Fact, Trait("User", "update")]
@@ -155,7 +141,7 @@ public class UserTests
         Assert.Throws<DuplicateException>(result);
     }
 
-    [Fact, Trait("User", "Update")]
+    [Fact, Trait("User", "update")]
     public void UpdateUser_SendInvalidUserId_ThrowNotFoundException()
     {
         void result() => service.Update(1, "ali", "rezaie", 18, "javidleo.ef@gmail.com", 1);
@@ -169,6 +155,42 @@ public class UserTests
         Assert.Throws<NotAcceptableException>(result);
     }
 
+    [Fact, Trait("User","getbyid")]
+    public void GetById_CheckWithInvalidId_ThrowNotFoundException()
+    {
+        var user = new UserBuilder().Build();
 
+        void result() => service.GetById(1);
+        Assert.Throws<NotFoundException>(result);
+    }
+
+    [Fact, Trait("User","getbyid")]
+    public void GetById_CheckForWorkingWell_ReturnExcpectedUser()
+    {
+        var user = new UserBuilder().Build();
+
+        _userRepositoryMock.Setup(i => i.Find(1)).Returns(user);
+        var result = service.GetById(1);
+
+        result.Result.Should().Be(user);
+    }
+
+    [Fact, Trait("User","getbyname")]
+    public void GetByName_CheckWithInvalidName_ThrowNotFoundException()
+    {
+        var user = new UserBuilder().Build();
+
+        void result() => service.GetByName(user.Name);
+        Assert.Throws<NotFoundException>(result);
+    }
+
+    [Fact, Trait("User","getbyname")]
+    public void GetByName_CheckForWorkingWell_ReturnExcpectedUser()
+    {
+        var user = new UserBuilder().Build();
+
+        _userRepositoryMock.Setup(i => i.Find(user.Name)).Returns(user);
+        var result = service.GetByName(user.Name);
+    }
 
 }

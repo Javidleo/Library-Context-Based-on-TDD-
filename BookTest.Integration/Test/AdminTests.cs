@@ -37,6 +37,7 @@ public class AdminTests : PersistTest<BookContext>
         _repository.Add(_admin);
         var excpected = _repository.Find(_admin.Name);
         _admin.Should().BeEquivalentTo(excpected);
+        _repository.Delete(_admin);
     }
 
     [Fact, Trait("Admin", "Repository")]
@@ -51,7 +52,7 @@ public class AdminTests : PersistTest<BookContext>
     public void DoesExist_CheckForWorkingWell()
     {
         _repository.Add(_admin);
-        bool doesExist = _repository.DoesExist(_admin.NationalCode);
+        bool doesExist = _repository.DoesNationalCodeExist(_admin.NationalCode);
         doesExist.Should().BeTrue();
     }
 
@@ -59,7 +60,7 @@ public class AdminTests : PersistTest<BookContext>
     public void DoesExist_CheckForPassingWrongValue_ReturnFalse()
     {
         _repository.Add(_admin);
-        bool doesExist = _repository.DoesExist("wrong nationalCode");
+        bool doesExist = _repository.DoesNationalCodeExist("wrong nationalCode");
         doesExist.Should().BeFalse();
     }
 

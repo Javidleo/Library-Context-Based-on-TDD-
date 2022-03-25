@@ -4,7 +4,6 @@ namespace DomainModel.Validation
 {
     public class OwnerValidation : AbstractValidator<Owner>
     {
-
         public OwnerValidation()
         {
             RuleFor(i => i.Name).NotEmpty().WithMessage("Name Should not be Empty").Matches(@"^[a-zA-Z\s]+$|^$").WithMessage("Name Should not have Special Characters");

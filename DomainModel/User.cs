@@ -20,11 +20,13 @@ namespace DomainModel
 
         public int AdminId { get; private set; }
 
+        public DateOnly ExpiractionDate { get; private set; }
+
         public virtual List<Interaction> Interactions { get; private set; } = new List<Interaction>();
 
         public virtual Admin Admin { get; private set; }
 
-        User(string name, string family, int age, string nationalCode, string email,int adminId)
+        User(string name, string family, int age, string nationalCode, string email, int adminId)
         {
             Name = name;
             Family = family;
@@ -32,17 +34,18 @@ namespace DomainModel
             NationalCode = nationalCode;
             Email = email;
             AdminId = adminId;
+            ExpiractionDate = new DateOnly().AddYears(1);
         }
 
-        public User() { }
+        private User() { }
 
-        public static User Create(string name, string family, int age, string nationalCode, string email,int adminId)
-        => new(name, family, age, nationalCode, email,adminId);
+        public static User Create(string name, string family, int age, string nationalCode, string email, int adminId)
+        => new(name, family, age, nationalCode, email, adminId);
 
-        public void Modify(string name, string family, int age, string email,int adminid)
+        public void Modify(string name, string family, int age, string email, int adminid)
         {
             Name = name;
-            Family =family;
+            Family = family;
             Age = age;
             Email = email;
             AdminId = adminid;
