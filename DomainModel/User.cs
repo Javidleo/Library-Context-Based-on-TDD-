@@ -20,7 +20,7 @@ namespace DomainModel
 
         public int AdminId { get; private set; }
 
-        public DateOnly ExpiractionDate { get; private set; }
+        public DateTime ExpirationDate { get; private set; }
 
         public virtual List<Interaction> Interactions { get; private set; } = new List<Interaction>();
 
@@ -34,7 +34,7 @@ namespace DomainModel
             NationalCode = nationalCode;
             Email = email;
             AdminId = adminId;
-            ExpiractionDate = new DateOnly().AddYears(1);
+            ExpirationDate = new DateTime().AddYears(1).Date;
         }
 
         private User() { }

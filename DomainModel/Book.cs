@@ -34,5 +34,11 @@ namespace DomainModel
         public void UnAvailable()
         => this.InUse = true;
 
+        public void Modify(string name, string authorName, string dateofAdding)
+        {
+            this.Name = name;
+            this.authorName= authorName;
+            this.DateofAdding = dateofAdding;
+        }
     }
 }

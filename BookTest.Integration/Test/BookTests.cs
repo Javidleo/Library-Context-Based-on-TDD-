@@ -22,17 +22,10 @@ public class BookTests : PersistTest<BookContext>
 
     public BookTests()
     {
-        _optionsBuilder = GenerateOptionBuilder();
+        _optionsBuilder = new ContextOptionBuilderGenerator().GenerateOptionBuilder();
         _context = new BookContext(_optionsBuilder.Options);
         _repository = new BookRepository(_context);
         _book = Book.Create("GoodBook", "ali", "11/12/1344");
-    }
-
-    private DbContextOptionsBuilder<BookContext> GenerateOptionBuilder()
-    {
-        var optionBuilder = new DbContextOptionsBuilder<BookContext>();
-        optionBuilder.UseSqlServer("Server=DESKTOP-MONHQ70;Database=bookdb;Trusted_Connection=True;");
-        return optionBuilder;
     }
 
     [Fact, Trait("Book", "Repository")]
@@ -44,7 +37,14 @@ public class BookTests : PersistTest<BookContext>
     }
 
     [Fact, Trait("Book", "Repository")]
-    public void GetAll_CheckForWorkingWell()
+    public void CreateBook_CheckForNullData_ThrowException()
+    {
+        void result() => _repository.Add(null);
+        Assert.Throws<NullReferenceException>(result);
+    }
+
+    [Fact, Trait("Book", "Repository")]
+    public void GetAllBooks_CheckForWorkingWell()
     {
         _repository.Add(_book);
         var bookList = _repository.GetAll();
@@ -52,17 +52,113 @@ public class BookTests : PersistTest<BookContext>
         bookList[0].Should().BeEquivalentTo(_book);
     }
 
-    [Theory, Trait("Book", "Repository")]
-    [InlineData("java", "ahmad", "11/12/1344")]
-    [InlineData("neda", "reza", "11/12/1344")]
-    public void FindByDateofAdding_CheckForWorkingWell(string name, string authorName, string dateofAdding)
+    [Fact, Trait("Book", "Repository")]
+    public void GetAllBooks_CheckWhenListIsEmpty()
     {
-        Book book = Book.Create(name, authorName, dateofAdding);
-        _repository.Add(_book);
-        _repository.Add(book);
+        var bookList = _repository.GetAll();
+        bookList.Count.Should().Be(0);
+    }
 
-        var bookList = _repository.FindByAddingDate("11/12/1344");
-        bookList.Should().Contain(_book);
-        bookList.Should().Contain(book);
+    [Fact, Trait("Book", "Repository")]
+    public void FindBookWithId_CheckForWorkingWell()
+    {
+        _repository.Add(_book);
+        var book = _repository.Find(_book.Name);
+
+        var excpected = _repository.Find(book.Id);
+        excpected.Should().BeEquivalentTo(_book);
+    }
+
+    [Fact, Trait("Book", "Repository")]
+    public void FindBookWithId_CheckForInvalidData_ReturnNull()
+    {
+        var excpected = _repository.Find(1);
+        excpected.Should().BeNull();
+    }
+
+    [Fact, Trait("Book", "Repository")]
+    public void FindBookWithId_CheckForNullData_ReturnNull()
+    {
+        var excpected = _repository.Find(null);
+        excpected.Should().BeNull();
+    }
+
+    [Fact, Trait("Book", "Repository")]
+    public void FindBookWithName_CheckForWorkingWell()
+    {
+        _repository.Add(_book);
+
+        var excpected = _repository.Find(_book.Name);
+        excpected.Should().BeEquivalentTo(_book);
+    }
+
+    [Fact, Trait("Book", "Repository")]
+    public void FindBookWithName_CheckForInvalidData_ReturnNull()
+    {
+        var excpected = _repository.Find("Some name###");
+        excpected.Should().BeNull();
+    }
+
+    [Fact, Trait("Book", "Repository")]
+    public void FindBookWithName_CheckForNullData_ReturnNull()
+    {
+        var excpected = _repository.Find(null);
+        excpected.Should().BeNull();
+    }
+
+    [Fact, Trait("Book", "Repository")]
+    public void FindByAddingDate_CheckForWorkingWell()
+    {
+        _repository.Add(_book);
+        var excpected = _repository.FindByAddingDate(_book.DateofAdding);
+
+        excpected.Should().Contain(_book);
+    }
+
+    [Fact, Trait("Book", "Repository")]
+    public void FindByAddingDate_CheckForInvalidData_NotContainExcpectedBook()
+    {
+        var excpected = _repository.FindByAddingDate("addingdate####");
+        excpected.Should().NotContain(_book);
+    }
+
+    [Fact, Trait("Book","Repository")]
+    public void FindByAddingDate_CheckForNullData_NotContainExcpectedBook()
+    {
+        var excpected = _repository.FindByAddingDate(null);
+        excpected.Should().NotContain(_book);
+    }
+
+    [Theory, Trait("Book","Repository")]
+    [InlineData("GoodBook", true)]
+    [InlineData("invalidBook", false)]
+    [InlineData(null, false)]
+    public void DoesNameExist_CheckForValidAndInvalidBookNames(string bookName, bool excpectation)
+    {
+        _repository.Add(_book);
+        var excpected = _repository.DoesNameExist(bookName);
+        excpected.Should().Be(excpectation);
+    }
+   
+    [Fact, Trait("Book","Reposiotry")]
+    public void UpdateBook_CheckForWorkingWell()
+    {
+        var book = Book.Create("book1", "author2", "11/12/1344");
+        _repository.Add(_book);
+        _book.Modify(book.Name, book.authorName, book.DateofAdding);
+
+        _repository.Update(_book);
+
+        var excpected = _repository.Find(_book.Name);
+        excpected.Name.Should().Be(book.Name);
+        excpected.authorName.Should().Be(book.authorName);
+        excpected.DateofAdding.Should().Be(book.DateofAdding);
+    }
+
+    [Fact, Trait("Book","Repository")]
+    public void UpdateBook_CheckForNullData_ThrowExcption()
+    {
+        void result() => _repository.Update(null);
+        Assert.Throws<NullReferenceException>(result);
     }
 }

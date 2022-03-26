@@ -13,5 +13,6 @@ namespace UseCases.RepositoryContract
         void Update(User user);
         void Delete(User user);
         bool DoesEmailExist(string email);
+        bool DoesNationalCodeExist(string nationalCode);
     }
 }

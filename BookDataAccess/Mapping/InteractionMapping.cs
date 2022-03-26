@@ -9,6 +9,7 @@ public class InteractionMapping : IEntityTypeConfiguration<Interaction>
     public void Configure(EntityTypeBuilder<Interaction> builder)
     {
         builder.HasKey(i => i.Id);
+        builder.Property(i => i.Date).ValueGeneratedNever();
         builder
             .HasOne(i => i.Admin)
             .WithMany(i => i.Interactions)

@@ -65,5 +65,11 @@ namespace BookTest.Unit.TestDoubles
         public void Update(User user)
         {
         }
+
+        public bool DoesNationalCodeExist(string nationalCode)
+        {
+            if (nationalCode == this.nationalCode) return true;
+            return false;
+        }
     }
 }

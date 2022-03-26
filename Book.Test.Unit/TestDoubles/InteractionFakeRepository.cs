@@ -26,7 +26,7 @@ namespace BookTest.Unit.TestDoubles
             return null;
         }
 
-        public List<Interaction> FindByUser(int userId)
+        public List<Interaction> FindByUserId(int userId)
         {
             var list = new List<Interaction>
             {

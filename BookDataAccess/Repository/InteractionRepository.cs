@@ -20,7 +20,7 @@ public class InteractionRepository : IInteractionRepository
     public Interaction Find(int id)
     => _context.Interactions.FirstOrDefault(i => i.Id == id);
 
-    public List<Interaction> FindByUser(int userId)
+    public List<Interaction> FindByUserId(int userId)
     => _context.Interactions.Where(i => i.UserId == userId).ToList();
 
     public void Update(Interaction interaction)

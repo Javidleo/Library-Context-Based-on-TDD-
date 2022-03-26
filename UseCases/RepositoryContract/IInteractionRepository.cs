@@ -5,7 +5,7 @@ namespace UseCases.RepositoryContract;
 
 public interface IInteractionRepository
 {
-    List<Interaction> FindByUser(int userId);
+    List<Interaction> FindByUserId(int userId);
     List<Interaction> FindByBookId(int bookId);
     void Add(Interaction interaction);
     Interaction Find(int id);

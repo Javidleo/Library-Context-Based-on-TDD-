@@ -6,6 +6,7 @@ using BookTest.Unit.TestDoubles;
 using DomainModel;
 using FluentAssertions;
 using Moq;
+using System;
 using System.Collections.Generic;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
@@ -98,7 +99,7 @@ public class InteractionTests
     {
         _interactionRepository.SetExistingInteractionId(1);
         _bookRepository.SetExistingId(1);
-        var interaction = new InteractionBuilder().WithId(1).WithBookId(1).WithUserId(1).WithDate(System.DateTime.Now).Build();
+        var interaction = new InteractionBuilder().WithId(1).WithBookId(1).WithUserId(1).WithDate(DateTime.Now.Date).Build();
        
         var result = service.Delete(Id: 1);
         interaction.IsDeleted.Should().BeTrue();
@@ -109,13 +110,11 @@ public class InteractionTests
     [Fact, Trait("Interaction", "GetAll")]
     public void GetAllInteractions_CheckForWorkingWell_ReturnSpecificResult()
     {
-        var list = new List<Interaction>()
+        var interactions = new List<Interaction>()
         {
             new InteractionBuilder().Build()
         };
-
-        
         var result = service.GetAll();
-        result.Should().BeEquivalentTo(list);
+        result.Should().BeEquivalentTo(interactions);
     }
 }
