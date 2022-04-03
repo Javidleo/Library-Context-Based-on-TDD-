@@ -1,5 +1,6 @@
 ﻿using BookTest.Unit.Data.InteractionTestData;
 using DomainModel;
+using System;
 using System.Collections.Generic;
 using UseCases.RepositoryContract;
 
@@ -10,10 +11,12 @@ namespace BookTest.Unit.TestDoubles
         private int validId;
         private int validUserId;
         private int validBookId;
+        private DateTime validDate;
 
         public void SetExistingBookId(int bookId) => validId = bookId;
         public void SetExistingUserId(int userId) => validUserId = userId;
         public void SetExistingInteractionId(int interactionId) => validId = interactionId;
+        public void SetExistingDate(DateTime date) => validDate = date;
 
         public void Add(Interaction interaction)
         {
@@ -50,15 +53,23 @@ namespace BookTest.Unit.TestDoubles
         {
         }
 
-        public List<Interaction> FindByBookId(int bookId)
+        public Interaction FindByBookId(int bookId)
         {
-            var list = new List<Interaction>
+            var interaction = new InteractionBuilder().Build();
+
+            if (bookId == validBookId)
+                return interaction;
+            return null;
+        }
+
+        public List<Interaction> Find(DateTime date)
+        {
+            var interactions = new List<Interaction>()
             {
                 new InteractionBuilder().Build()
             };
-
-            if (bookId == validBookId)
-                return list;
+            if (date == validDate)
+                return interactions;
             return null;
         }
     }

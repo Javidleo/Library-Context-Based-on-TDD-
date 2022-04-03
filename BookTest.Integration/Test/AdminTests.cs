@@ -83,9 +83,7 @@ public class AdminTests : PersistTest<BookContext>
     }
 
     [Theory, Trait("Admin", "Repository")]
-    [InlineData("javidleo.ef@gmail.com", true)]
-    [InlineData("someEmail", false)]
-    [InlineData(null, false)]
+    [InlineData("javidleo.ef@gmial.com", true)]
     public void DoesEmailExist_CheckForWorkingWell_ReturnTrue(string email, bool excpectation)
     {
         _repository.Add(_admin);

@@ -1,4 +1,6 @@
-﻿namespace DomainModel
+﻿using System;
+
+namespace DomainModel
 {
     public class Owner
     {
@@ -29,5 +31,14 @@
 
         public static Owner Create(string name, string family, string nationalcode, string phonenumber, string username, string password)
         => new(name, family, nationalcode, phonenumber, username, password);
+
+        public void Modify(string name, string family, string phoneNumber, string userName, string password)
+        {
+            this.Name = name;
+            this.Family = family;
+            this.PhoneNumber = phoneNumber;
+            this.UserName = userName;
+            this.Password = password;
+        }
     }
 }

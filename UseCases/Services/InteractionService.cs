@@ -76,7 +76,25 @@ namespace UseCases.Exceptions
             _bookRepository.Update(book);
         }
 
-        public List<Interaction> GetAll()
-        => Task.FromResult(_interactionRepository.GetAll()).Result;
+        public Task<List<Interaction>> GetAll()
+        => Task.FromResult(_interactionRepository.GetAll());
+
+        public Task<List<Interaction>> FindByUserId(int userId)
+        => Task.FromResult(_interactionRepository.FindByUserId(userId));
+
+        public Task<Interaction> FindByBookId(int bookId)
+        => Task.FromResult(_interactionRepository.FindByBookId(bookId));
+
+        public Task<Interaction> FindByInteractionId(int id)
+        {
+            var interaction = _interactionRepository.Find(id);
+            if (interaction is null)
+                throw new NotFoundException("Not Founded");
+
+            return Task.FromResult(interaction);
+        }
+
+        public Task<List<Interaction>> FindByInteractionDate(DateTime date)
+        => Task.FromResult(_interactionRepository.Find(date));
     }
 }

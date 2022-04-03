@@ -164,7 +164,7 @@ public class UserTests : PersistTest<BookContext>
     {
         void result() => _userRepository.Update(null);
 
-        Assert.Throws<NullReferenceException>(result);
+        Assert.Throws<ArgumentNullException>(result);
     }
 
     [Fact]
@@ -182,7 +182,7 @@ public class UserTests : PersistTest<BookContext>
     public void DeleteUser_CheckForNullData_ThrowExcpection()
     {
         void result()=> _userRepository.Delete(null);
-        Assert.Throws<ArgumentException>(result);
+        Assert.Throws<ArgumentNullException>(result);
     }
 
     [Theory]

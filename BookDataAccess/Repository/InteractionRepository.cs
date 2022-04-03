@@ -1,4 +1,5 @@
 ﻿using DomainModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UseCases.RepositoryContract;
@@ -32,6 +33,9 @@ public class InteractionRepository : IInteractionRepository
     public List<Interaction> GetAll()
     => _context.Interactions.ToList();
 
-    public List<Interaction> FindByBookId(int bookId)
-    => _context.Interactions.Where(i => i.BookId == bookId).ToList();
+    public Interaction FindByBookId(int bookId)
+    => _context.Interactions.FirstOrDefault(i => i.BookId == bookId&& i.IsDeleted == false);
+
+    public List<Interaction> Find(DateTime date)
+    => _context.Interactions.Where(i => i.Date == date).ToList();
 }

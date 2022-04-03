@@ -36,5 +36,11 @@ namespace DomainModel
 
         public void LogicalDelete()
         => this.IsDeleted = true;
+
+        public void Modify(int bookId, int userId)
+        {
+            this.BookId = BookId;
+            this.UserId = UserId;
+        }
     }
 }
