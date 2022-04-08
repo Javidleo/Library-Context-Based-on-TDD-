@@ -21,7 +21,7 @@ namespace BookTest.Integration.Test
         private Interaction _interaction;
         public InteractionTests()
         {
-            _optionBuilder = new ContextOptionBuilderGenerator().GenerateOptionBuilder();
+            _optionBuilder = new ContextOptionBuilderGenerator().Build();
             _context = new BookContext(_optionBuilder.Options);
             _interactionRepository = new InteractionRepository(_context);
         }

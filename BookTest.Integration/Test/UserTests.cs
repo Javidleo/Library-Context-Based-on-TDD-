@@ -20,7 +20,7 @@ public class UserTests : PersistTest<BookContext>
     private User _user;
     public UserTests()
     {
-        _optionBuilder = new ContextOptionBuilderGenerator().GenerateOptionBuilder();
+        _optionBuilder = new ContextOptionBuilderGenerator().Build();
         _context = new BookContext(_optionBuilder.Options);
         _userRepository = new UserRepository(_context);
         _user = User.Create("name", "family", 15, "123123123", "javidleo.ef@gmail.com", 1);

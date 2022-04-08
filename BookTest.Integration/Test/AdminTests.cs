@@ -17,7 +17,7 @@ public class AdminTests : PersistTest<BookContext>
     private Admin _admin;
     public AdminTests()
     {
-        _optionBuilder = new ContextOptionBuilderGenerator().GenerateOptionBuilder();
+        _optionBuilder = new ContextOptionBuilderGenerator().Build();
         _context = new BookContext(_optionBuilder.Options);
         _repository = new AdminRepository(_context);
         _admin = Admin.Create("ali", "rezaie", "11/12/1388", "12412544", "user", "javidleo.ef@gmial.com", "adf@34");

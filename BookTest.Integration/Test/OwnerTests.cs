@@ -21,7 +21,7 @@ public class OwnerTests : PersistTest<BookContext>
     private Owner _owner;
     public OwnerTests()
     {
-        _optionBuilder = new ContextOptionBuilderGenerator().GenerateOptionBuilder();
+        _optionBuilder = new ContextOptionBuilderGenerator().Build();
         _context = new BookContext(_optionBuilder.Options);
         _ownerRepository = new OwnerRepository(_context);
         _owner = Owner.Create("javid", "hasani", "1234567890", "09177034453", "user", "password");

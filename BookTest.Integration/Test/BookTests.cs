@@ -4,12 +4,9 @@ using DomainModel;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UseCases.RepositoryContract;
 using Xunit;
+using System.Transactions;
 
 namespace BookTest.Integration.Test;
 
@@ -22,7 +19,7 @@ public class BookTests : PersistTest<BookContext>
 
     public BookTests()
     {
-        _optionsBuilder = new ContextOptionBuilderGenerator().GenerateOptionBuilder();
+        _optionsBuilder = new ContextOptionBuilderGenerator().Build();
         _context = new BookContext(_optionsBuilder.Options);
         _repository = new BookRepository(_context);
         _book = Book.Create("GoodBook", "ali", "11/12/1344");
@@ -32,8 +29,8 @@ public class BookTests : PersistTest<BookContext>
     public void CreateBook_CheckForCreatingSuccessfully()
     {
         _repository.Add(_book);
-        var excpected = _repository.Find(_book.Name);
-        _book.Should().BeEquivalentTo(excpected);
+        var actual = _repository.Find(_book.Name);
+        actual.Should().Be(_book);
     }
 
     [Fact, Trait("Book", "Repository")]
@@ -122,14 +119,14 @@ public class BookTests : PersistTest<BookContext>
         excpected.Should().NotContain(_book);
     }
 
-    [Fact, Trait("Book","Repository")]
+    [Fact, Trait("Book", "Repository")]
     public void FindByAddingDate_CheckForNullData_NotContainExcpectedBook()
     {
         var excpected = _repository.FindByAddingDate(null);
         excpected.Should().NotContain(_book);
     }
 
-    [Theory, Trait("Book","Repository")]
+    [Theory, Trait("Book", "Repository")]
     [InlineData("GoodBook", true)]
     [InlineData("invalidBook", false)]
     [InlineData(null, false)]
@@ -139,8 +136,8 @@ public class BookTests : PersistTest<BookContext>
         var excpected = _repository.DoesNameExist(bookName);
         excpected.Should().Be(excpectation);
     }
-   
-    [Fact, Trait("Book","Reposiotry")]
+
+    [Fact, Trait("Book", "Reposiotry")]
     public void UpdateBook_CheckForWorkingWell()
     {
         var book = Book.Create("book1", "author2", "11/12/1344");
@@ -155,7 +152,7 @@ public class BookTests : PersistTest<BookContext>
         excpected.DateofAdding.Should().Be(book.DateofAdding);
     }
 
-    [Fact, Trait("Book","Repository")]
+    [Fact, Trait("Book", "Repository")]
     public void UpdateBook_CheckForNullData_ThrowExcption()
     {
         void result() => _repository.Update(null);
