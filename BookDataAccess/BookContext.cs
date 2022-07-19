@@ -9,7 +9,6 @@ public class BookContext : DbContext
     public BookContext() { }
     public BookContext(DbContextOptions<BookContext> option) : base(option) { }
 
-
     public DbSet<User> Users { get; set; }
     public DbSet<Admin> Admin { get; set; }
     public DbSet<Book> Books { get; set; }

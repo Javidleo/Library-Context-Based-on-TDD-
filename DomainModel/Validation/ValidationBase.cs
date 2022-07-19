@@ -60,7 +60,7 @@ namespace DomainModel.Validation
 
         public static bool CheckUserName(string userName)
         {
-            List<char> specialCharacter = new() {'#', '$', '!', '%', '^', '&', '*', '(', ')', '<', ',', '>', '/', '|' };
+            List<char> specialCharacter = new() { '#', '$', '!', '%', '^', '&', '*', '(', ')', '<', ',', '>', '/', '|' };
             if (userName.Any(i => specialCharacter.Contains(i)))
                 return false;
 
@@ -115,6 +115,7 @@ namespace DomainModel.Validation
             int year = Convert.ToInt32(arr[2]);
             int month = Convert.ToInt32(arr[1]);
             int day = Convert.ToInt32(arr[0]);
+
             if (year < 1300)
                 return false;
 

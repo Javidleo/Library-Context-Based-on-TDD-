@@ -1,13 +1,12 @@
 ﻿using DomainModel;
 using DomainModel.Validation;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
 
-namespace UseCases.Exceptions
+namespace UseCases.Services
 {
     public class UserService : IUserService
     {
@@ -21,9 +20,9 @@ namespace UseCases.Exceptions
             validation = new UserValidation();
         }
 
-        public Task Create(string name, string family, int age, string nationalCode, string email,int adminId)
+        public Task Create(string name, string family, int age, string nationalCode, string email, int adminId)
         {
-            User user = User.Create(name, family, age, nationalCode, email,adminId);
+            User user = User.Create(name, family, age, nationalCode, email, adminId);
 
             if (!validation.Validate(user).IsValid)
                 throw new NotAcceptableException("Invalid User");
@@ -33,7 +32,7 @@ namespace UseCases.Exceptions
         }
 
         public Task<List<User>> GetAll()
-        => Task.FromResult(_userRepository.GetAll());
+        => Task.FromResult(_userRepository.FindAll());
 
         public Task<User> GetById(int id)
         {
@@ -56,10 +55,10 @@ namespace UseCases.Exceptions
             return Task.CompletedTask;
         }
 
-        public Task Update(int id, string name, string family, int age, string email,int adminid)
+        public Task Update(int id, string name, string family, int age, string email, int adminid)
         {
             string dummyNationalCode = "0990076016";
-            if (!validation.Validate(User.Create(name, family, age, dummyNationalCode, email,1)).IsValid)
+            if (!validation.Validate(User.Create(name, family, age, dummyNationalCode, email, 1)).IsValid)
                 throw new NotAcceptableException("Invalid Informations");
 
             if (_userRepository.DoesEmailExist(email))
@@ -69,7 +68,7 @@ namespace UseCases.Exceptions
             if (user is null)
                 throw new NotFoundException("User Not Found");
 
-            
+
             user.Modify(name, family, age, email, adminid);
 
             _userRepository.Update(user);

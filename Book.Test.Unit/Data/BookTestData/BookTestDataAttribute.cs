@@ -4,7 +4,7 @@ using Xunit.Sdk;
 
 namespace BookTest.Unit.Data.BookTestData;
 
-public class BookTestData : DataAttribute
+public class BookTestDataAttribute : DataAttribute
 {
     public override IEnumerable<object[]> GetData(MethodInfo testMethod)
     {

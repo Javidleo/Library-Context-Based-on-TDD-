@@ -1,9 +1,3 @@
-using BookDataAccess;
-using BookDataAccess.Repository;
-using DomainModel;
-using UseCases.RepositoryContract;
-using Xunit;
-
 namespace BookTest.Integration
 {
     //public class UserIntegrationTests : PersistTest<BookContext>

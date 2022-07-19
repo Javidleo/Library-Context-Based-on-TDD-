@@ -1,11 +1,11 @@
 ﻿using BookTest.Unit.Data.UserTestData;
-using DomainModel;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using Moq;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
+using UseCases.Services;
 using Xunit;
 
 namespace BookTest.Unit;
@@ -92,7 +92,7 @@ public class UserTests
     [UserValidTestData]
     public void CreateUser_CheckforCreatingSuccessfully_ReturnSuccessTaskStatus(UserValidTestObject user)
     {
-        var result = service.Create(user.name, user.family,user.age,user.nationalCode,user.email,user.adminId);
+        var result = service.Create(user.name, user.family, user.age, user.nationalCode, user.email, user.adminId);
         result.Status.ToString().Should().Be("RanToCompletion");
     }
     [Fact, Trait("User", "create")]
@@ -155,7 +155,7 @@ public class UserTests
         Assert.Throws<NotAcceptableException>(result);
     }
 
-    [Fact, Trait("User","getbyid")]
+    [Fact, Trait("User", "getbyid")]
     public void GetById_CheckWithInvalidId_ThrowNotFoundException()
     {
         var user = new UserBuilder().Build();
@@ -164,7 +164,7 @@ public class UserTests
         Assert.Throws<NotFoundException>(result);
     }
 
-    [Fact, Trait("User","getbyid")]
+    [Fact, Trait("User", "getbyid")]
     public void GetById_CheckForWorkingWell_ReturnExcpectedUser()
     {
         var user = new UserBuilder().Build();
@@ -175,7 +175,7 @@ public class UserTests
         result.Result.Should().Be(user);
     }
 
-    [Fact, Trait("User","getbyname")]
+    [Fact, Trait("User", "getbyname")]
     public void GetByName_CheckWithInvalidName_ThrowNotFoundException()
     {
         var user = new UserBuilder().Build();
@@ -184,7 +184,7 @@ public class UserTests
         Assert.Throws<NotFoundException>(result);
     }
 
-    [Fact, Trait("User","getbyname")]
+    [Fact, Trait("User", "getbyname")]
     public void GetByName_CheckForWorkingWell_ReturnExcpectedUser()
     {
         var user = new UserBuilder().Build();

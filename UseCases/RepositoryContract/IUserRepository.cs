@@ -1,17 +1,12 @@
 ﻿using DomainModel;
-using System.Collections.Generic;
+using UseCases.RepositoryContract.Abstraction;
 
 namespace UseCases.RepositoryContract
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<User>
     {
-        void Add(User user);
         User Find(string name);
-        List<User> GetAll();
-        User Find(int Id);
         User FindWithBooks(int Id);
-        void Update(User user);
-        void Delete(User user);
         bool DoesEmailExist(string email);
         bool DoesNationalCodeExist(string nationalCode);
     }

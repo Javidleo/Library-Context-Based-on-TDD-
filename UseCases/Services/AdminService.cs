@@ -1,13 +1,12 @@
 ﻿using DomainModel;
 using DomainModel.Validation;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
 
-namespace UseCases.Exceptions
+namespace UseCases.Services
 {
     public class AdminService : IAdminService
     {
@@ -22,7 +21,7 @@ namespace UseCases.Exceptions
         public Task Create(string name, string family, string dateofBirth, string natioanlCode, string userName, string email, string password)
         {
             Admin admin = Admin.Create(name, family, dateofBirth, natioanlCode, userName, email, password);
-            
+
             if (!validation.Validate(admin).IsValid)
                 throw new NotAcceptableException("Invalid Inputs");
 
@@ -40,7 +39,7 @@ namespace UseCases.Exceptions
         }
 
         public Task<List<Admin>> GetAll()
-        => Task.FromResult(_repository.GetAll());
+        => Task.FromResult(_repository.FindAll());
 
         public Task<Admin> GetByNationalCode(string nationalCode)
         {

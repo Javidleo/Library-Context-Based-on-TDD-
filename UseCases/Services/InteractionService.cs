@@ -6,9 +6,9 @@ using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
 
-namespace UseCases.Exceptions
+namespace UseCases.Services
 {
-    public class InteractionService: IInteractionService
+    public class InteractionService : IInteractionService
     {
         private readonly IUserRepository _userRepository;
         private readonly IAdminRepository _adminRepository;
@@ -77,7 +77,7 @@ namespace UseCases.Exceptions
         }
 
         public Task<List<Interaction>> GetAll()
-        => Task.FromResult(_interactionRepository.GetAll());
+        => Task.FromResult(_interactionRepository.FindAll());
 
         public Task<List<Interaction>> FindByUserId(int userId)
         => Task.FromResult(_interactionRepository.FindByUserId(userId));

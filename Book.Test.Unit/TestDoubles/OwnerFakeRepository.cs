@@ -28,7 +28,7 @@ namespace BookTest.Unit.TestDoubles
             return null;
         }
 
-        public List<Owner> GetAll()
+        public List<Owner> FindAll()
         {
             var list = new List<Owner>()
             {

@@ -45,7 +45,7 @@ public class UserTests : PersistTest<BookContext>
     public void GetAllUsers_CheckForDoingWell()
     {
         _userRepository.Add(_user);
-        var userList = _userRepository.GetAll();
+        var userList = _userRepository.FindAll();
         userList.Should().Contain(_user);
     }
 
@@ -149,7 +149,7 @@ public class UserTests : PersistTest<BookContext>
         _userRepository.Add(_user);
         var user = _userRepository.Find(_user.Name);
 
-        user.Modify("javid", "hasani", 16, "javidleo.ef@gmail.com",1);
+        user.Modify("javid", "hasani", 16, "javidleo.ef@gmail.com", 1);
         _userRepository.Update(user);
 
         var excpected = _userRepository.Find(user.Id);
@@ -181,25 +181,25 @@ public class UserTests : PersistTest<BookContext>
     [Fact]
     public void DeleteUser_CheckForNullData_ThrowExcpection()
     {
-        void result()=> _userRepository.Delete(null);
+        void result() => _userRepository.Delete(null);
         Assert.Throws<ArgumentNullException>(result);
     }
 
     [Theory]
-    [InlineData("javidleo.ef@gmail.com",true)]
-    [InlineData("SomeEmail",false)]
-    [InlineData(null,false)]
+    [InlineData("javidleo.ef@gmail.com", true)]
+    [InlineData("SomeEmail", false)]
+    [InlineData(null, false)]
     public void DoesEmailExist_CheckForWorkingWell(string email, bool excpectation)
     {
         _userRepository.Add(_user);
-        
+
         var excpected = _userRepository.DoesEmailExist(email);
         excpected.Should().Be(excpectation);
     }
 
     [Theory]
-    [InlineData("123123123",true)]
-    [InlineData("natioanlCode",false)]
+    [InlineData("123123123", true)]
+    [InlineData("natioanlCode", false)]
     [InlineData(null, false)]
     public void DoesNaitonalCodeExist_CheckForWrokingWell(string nationalCode, bool excpectation)
     {

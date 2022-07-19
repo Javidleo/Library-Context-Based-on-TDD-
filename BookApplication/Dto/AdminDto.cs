@@ -1,6 +1,4 @@
-﻿using DomainModel;
-
-namespace BookApplication.Dto
+﻿namespace BookApplication.Dto
 {
     public class AdminDto
     {

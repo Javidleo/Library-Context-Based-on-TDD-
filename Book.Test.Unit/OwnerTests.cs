@@ -4,10 +4,10 @@ using DomainModel;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
-using Moq;
 using NSubstitute;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
+using UseCases.Services;
 using Xunit;
 
 namespace BookTest.Unit;
@@ -23,7 +23,7 @@ public class OwnerTests
         _repository = new OwnerFakeRepository();
         _service = new OwnerService(_repository);
         _validation = new OwnerValidation();
-        
+
     }
 
     private void Setup()
@@ -96,7 +96,7 @@ public class OwnerTests
         result.ShouldHaveValidationErrorFor(owner => owner.PhoneNumber).WithErrorMessage(errorMessage);
     }
 
-    [Fact, Trait("Owner","create")]
+    [Fact, Trait("Owner", "create")]
     public void CreateOwner_CheckForDuplicateNationalCode_ThrowDuplciateException()
     {
         var owner = new OwnerBuilder().Build();
@@ -126,6 +126,6 @@ public class OwnerTests
         Assert.Throws<NotAcceptableException>(result);
     }
 
-  
+
 }
 

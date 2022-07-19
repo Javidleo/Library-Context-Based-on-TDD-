@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using UseCases.RepositoryContract;
 using Xunit;
-using System.Transactions;
 
 namespace BookTest.Integration.Test;
 
@@ -44,7 +43,7 @@ public class BookTests : PersistTest<BookContext>
     public void GetAllBooks_CheckForWorkingWell()
     {
         _repository.Add(_book);
-        var bookList = _repository.GetAll();
+        var bookList = _repository.FindAll();
         bookList.Should().HaveCount(1);
         bookList[0].Should().BeEquivalentTo(_book);
     }
@@ -52,7 +51,7 @@ public class BookTests : PersistTest<BookContext>
     [Fact, Trait("Book", "Repository")]
     public void GetAllBooks_CheckWhenListIsEmpty()
     {
-        var bookList = _repository.GetAll();
+        var bookList = _repository.FindAll();
         bookList.Count.Should().Be(0);
     }
 
@@ -142,13 +141,13 @@ public class BookTests : PersistTest<BookContext>
     {
         var book = Book.Create("book1", "author2", "11/12/1344");
         _repository.Add(_book);
-        _book.Modify(book.Name, book.authorName, book.DateofAdding);
+        _book.Modify(book.Name, book.AuthorName, book.DateofAdding);
 
         _repository.Update(_book);
 
         var excpected = _repository.Find(_book.Name);
         excpected.Name.Should().Be(book.Name);
-        excpected.authorName.Should().Be(book.authorName);
+        excpected.AuthorName.Should().Be(book.AuthorName);
         excpected.DateofAdding.Should().Be(book.DateofAdding);
     }
 

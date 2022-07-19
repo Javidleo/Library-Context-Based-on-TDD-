@@ -26,7 +26,7 @@ namespace DomainModel
 
         public virtual Admin Admin { get; private set; }
 
-        User(string name, string family, int age, string nationalCode, string email, int adminId)
+        private User(string name, string family, int age, string nationalCode, string email, int adminId)
         {
             Name = name;
             Family = family;

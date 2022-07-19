@@ -23,15 +23,9 @@ namespace BookTest.Unit.TestDoubles
 
         public void SetExistingName(string name) => validName = name;
 
-        public void Add(Admin admin)
-        {
+        public void Add(Admin admin) { }
 
-        }
-
-        public void Delete(Admin admin)
-        {
-
-        }
+        public void Delete(Admin admin) { }
 
         public bool DoesEmailExist(string email)
         {
@@ -63,7 +57,7 @@ namespace BookTest.Unit.TestDoubles
             return null;
         }
 
-        public List<Admin> GetAll()
+        public List<Admin> FindAll()
         {
             var list = new List<Admin>()
             {
@@ -80,9 +74,6 @@ namespace BookTest.Unit.TestDoubles
             return null;
         }
 
-        public void Update(Admin admin)
-        {
-            
-        }
+        public void Update(Admin admin) { }
     }
 }

@@ -4,11 +4,12 @@ using DomainModel;
 using DomainModel.Validation;
 using FluentAssertions;
 using FluentValidation.TestHelper;
-using Moq;
+using NSubstitute;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
+using UseCases.Services;
 using Xunit;
-using NSubstitute;
+
 namespace BookTest.Unit;
 
 public class AdminTest
@@ -16,7 +17,7 @@ public class AdminTest
     private AdminService _service;
     private readonly AdminValidation _validation;
     private readonly AdminFakeRepository _repository;
-    private  IAdminRepository _repositoryFake;
+    private IAdminRepository _repositoryFake;
     public AdminTest()
     {
         _repository = new AdminFakeRepository();
@@ -150,14 +151,14 @@ public class AdminTest
     }
 
     [Fact, Trait("Admin", "create")]
-    
+
     public void CreateAdmin_CheckForCreatingSuccessfully_ReturnSuccessTaskStatus()
     {
         Setup();
         var admin = new AdminBuilder().Build();
 
-        var result = _service.Create(admin.Name,admin.Family,admin.DateofBirth,admin.NationalCode,admin.UserName,admin.Email,admin.Password);
-        _repositoryFake.Received(1).Add(Arg.Is<Admin> (e =>  e.NationalCode == admin.NationalCode));
+        var result = _service.Create(admin.Name, admin.Family, admin.DateofBirth, admin.NationalCode, admin.UserName, admin.Email, admin.Password);
+        _repositoryFake.Received(1).Add(Arg.Is<Admin>(e => e.NationalCode == admin.NationalCode));
     }
 
     [Fact, Trait("Admin", "delete")]
@@ -179,7 +180,7 @@ public class AdminTest
         result.Status.ToString().Should().Be("RanToCompletion");
     }
 
-    [Fact, Trait("Admin","update")]
+    [Fact, Trait("Admin", "update")]
     public void UpdateAdmin_CheckForInvalidId_ThrowNotFoundException()
     {
         void result() => _service.Update(1, "ali", "rezaie", "11/12/1388", "user", "javid@gmail.com", "javid123#!!");
@@ -187,19 +188,19 @@ public class AdminTest
         exception.Message.Should().Be("Not Founded");
     }
 
-    [Fact, Trait("Admin","update")]
+    [Fact, Trait("Admin", "update")]
     public void UpdateAdmin_CheckForDuplicateEmail_ThrowDuplicateException()
     {
         _repository.SetExistingId(1);
         _repository.SetExistingEmail("javidleo.ef@gmail.com");
 
-        void result() => _service.Update(1, "ali", "reziae", "11/12/1366", "user","javidleo.ef@gmail.com", "javidl123#21");
+        void result() => _service.Update(1, "ali", "reziae", "11/12/1366", "user", "javidleo.ef@gmail.com", "javidl123#21");
 
         var exception = Assert.Throws<DuplicateException>(result);
         exception.Message.Should().Be("Duplicate Email");
     }
 
-    [Fact, Trait("Admin","update")]
+    [Fact, Trait("Admin", "update")]
     public void UpdateAdmin_CheckForDuplicateUserName_ThrowDuplcateException()
     {
         var admin = new AdminBuilder().Build();
@@ -212,7 +213,7 @@ public class AdminTest
         exception.Message.Should().Be("Duplicate Username");
     }
 
-    [Fact, Trait("Admin","update")]
+    [Fact, Trait("Admin", "update")]
     public void UpdateAdmin_CheckForWorkingWell_ReturnSuccessTaskStatus()
     {
         Setup();
@@ -220,13 +221,7 @@ public class AdminTest
         var newAdmin = new AdminBuilder().Build();
         _repositoryFake.Find(1).Returns(newAdmin);
 
-        var result = _service.Update(1, newAdmin.Name, newAdmin.Family, newAdmin.DateofBirth, newAdmin.UserName,newAdmin.Email, newAdmin.Password);
+        var result = _service.Update(1, newAdmin.Name, newAdmin.Family, newAdmin.DateofBirth, newAdmin.UserName, newAdmin.Email, newAdmin.Password);
         result.Status.ToString().Should().Be("RanToCompletion");
     }
-
-
-
-  
-
-
 }

@@ -41,7 +41,7 @@ namespace BookTest.Unit.TestDoubles
             return null;
         }
 
-        public List<Interaction> GetAll()
+        public List<Interaction> FindAll()
         {
             return new List<Interaction>
             {

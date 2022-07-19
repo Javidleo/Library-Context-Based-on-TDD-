@@ -8,8 +8,8 @@ using Moq;
 using System.Collections.Generic;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
+using UseCases.Services;
 using Xunit;
-using NSubstitute;
 
 namespace BookTest.Unit;
 
@@ -49,7 +49,7 @@ public class BookTests
     {
         var book = new BookBuilder().WithAuthorName(authorName).Build();
         var result = _validation.TestValidate(book);
-        result.ShouldHaveValidationErrorFor(book => book.authorName).WithErrorMessage(errorMessage);
+        result.ShouldHaveValidationErrorFor(book => book.AuthorName).WithErrorMessage(errorMessage);
     }
 
     [Theory, Trait("Book", "validation")]
@@ -64,13 +64,13 @@ public class BookTests
         result.ShouldHaveValidationErrorFor(book => book.DateofAdding).WithErrorMessage(errorMessage);
     }
 
-    [Fact, Trait("Book","create")]
+    [Fact, Trait("Book", "create")]
     public void CreateBook_CheckForSendingDuplicateName_ThrowDuplciateException()
     {
         var book = new BookBuilder().Build();
         _bookRepository.SetExistingName(book.Name);
 
-        void result() => _service.Create(book.Name, book.authorName, book.DateofAdding);
+        void result() => _service.Create(book.Name, book.AuthorName, book.DateofAdding);
         Assert.Throws<DuplicateException>(result);
     }
 
@@ -89,7 +89,7 @@ public class BookTests
 
     [Fact, Trait("Book", "create")]
     public void CreateBook_ChechForCreatingSuccessfully_ReturnSuccessTaskStatus()
-    { 
+    {
         Setup(); // we call setup to create an instance of MockRepository because we dont need it always
         var book = new BookBuilder().Build();
 
@@ -98,7 +98,7 @@ public class BookTests
 
         var service = new BookService(_bookRepositoryMock.Object);
 
-        var result = service.Create(book.Name, book.authorName, book.DateofAdding);
+        var result = service.Create(book.Name, book.AuthorName, book.DateofAdding);
         Assert.Equal(2, _bookRepositoryMock.Invocations.Count);
     }
 
@@ -116,7 +116,7 @@ public class BookTests
         var book = new BookBuilder().Build();
         _bookRepository.SetExistingName(book.Name);
 
-        void result() => _service.Update(book.Id, book.Name, book.authorName, book.DateofAdding);
+        void result() => _service.Update(book.Id, book.Name, book.AuthorName, book.DateofAdding);
         Assert.Throws<DuplicateException>(result);
     }
 
@@ -128,7 +128,7 @@ public class BookTests
         var service = new BookService(MockRepo.Object);
         MockRepo.Setup(i => i.Find(1)).Returns(book);
 
-        var result = service.Update(1, book.Name, book.authorName, book.DateofAdding);
+        var result = service.Update(1, book.Name, book.AuthorName, book.DateofAdding);
 
         Assert.Equal(3, MockRepo.Invocations.Count);
         MockRepo.Verify(i => i.Update(book), Times.Once());

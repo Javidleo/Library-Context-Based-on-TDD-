@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DomainModel
 {
@@ -16,12 +15,10 @@ namespace DomainModel
         public string Password { get; private set; }
         public virtual List<Interaction> Interactions { get; private set; }
 
-        //public override string ToString()
-        //=> $"{nameof(Admin)}(id:{Id},Name:\"{Name}, Family:\"{Family}, DateofBirth:\"{DateofBirth},NaitonalCode:\"{NationalCode}, UserName:\"{UserName},Email:\"{Email},Password:\"{Password}";
-
         private Admin() { }
 
-        Admin(string name, string family, string dateofBirth, string nationalCode, string userName, string email, string password)
+        private Admin(string name, string family, string dateofBirth, string nationalCode, string userName,
+                        string email, string password)
         {
             Name = name;
             Family = family;
@@ -32,17 +29,19 @@ namespace DomainModel
             Password = password;
         }
 
-        public static Admin Create(string name, string family, string dateofbirth, string nationalcode, string username, string email, string password)
-            => new(name, family, dateofbirth, nationalcode, username, email, password);
+        public static Admin Create(string name, string family, string dateofbirth, string nationalcode, string username,
+                                    string email, string password)
+
+        => new(name, family, dateofbirth, nationalcode, username, email, password);
 
         public void Modify(string name, string family, string dateofBirth, string username, string email, string password)
         {
-            this.Name = name;
-            this.Family = family;
-            this.DateofBirth = dateofBirth;
-            this.UserName = username;
-            this.Email = email;
-            this.Password = password;
+            Name = name;
+            Family = family;
+            DateofBirth = dateofBirth;
+            UserName = username;
+            Email = email;
+            Password = password;
         }
     }
 }

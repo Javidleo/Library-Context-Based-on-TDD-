@@ -1,15 +1,14 @@
 ﻿using DomainModel;
 using DomainModel.Validation;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
 
-namespace UseCases.Exceptions
+namespace UseCases.Services
 {
-    public class OwnerService :IOwnerService
+    public class OwnerService : IOwnerService
     {
         private readonly OwnerValidation validation;
         private readonly IOwnerRepository _repository;
@@ -19,7 +18,7 @@ namespace UseCases.Exceptions
             _repository = repository;
         }
 
-        public Task Create(string name, string family ,string nationalCode, string phoneNumber, string userName, string password)
+        public Task Create(string name, string family, string nationalCode, string phoneNumber, string userName, string password)
         {
             Owner owner = Owner.Create(name, family, nationalCode, phoneNumber, userName, password);
 
@@ -34,7 +33,7 @@ namespace UseCases.Exceptions
         }
 
         public Task<List<Owner>> GetAll()
-        => Task.FromResult(_repository.GetAll());
+        => Task.FromResult(_repository.FindAll());
 
         public Task<Owner> FindById(int id)
         {

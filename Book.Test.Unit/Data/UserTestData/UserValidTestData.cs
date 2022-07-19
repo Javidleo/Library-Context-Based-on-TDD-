@@ -7,7 +7,7 @@ public class UserValidTestData : DataAttribute
 {
     public override IEnumerable<object[]> GetData(MethodInfo testMethod)
     {
-        yield return new object[] 
+        yield return new object[]
         {
             new UserValidTestObject()
             {

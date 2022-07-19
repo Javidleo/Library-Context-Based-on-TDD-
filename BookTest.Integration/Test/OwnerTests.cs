@@ -5,9 +5,6 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UseCases.RepositoryContract;
 using Xunit;
 
@@ -38,7 +35,7 @@ public class OwnerTests : PersistTest<BookContext>
     [Fact]
     public void CreateOwner_CheckForNullData_ThrowException()
     {
-        void result()=> _ownerRepository.Add(null);
+        void result() => _ownerRepository.Add(null);
         Assert.Throws<NullReferenceException>(result);
     }
 
@@ -55,7 +52,7 @@ public class OwnerTests : PersistTest<BookContext>
         _context.Owner.AddRange(owners);
         _context.SaveChanges();
 
-        var excpected = _ownerRepository.GetAll();
+        var excpected = _ownerRepository.FindAll();
 
         excpected.Should().NotBeNull();
         excpected.Count.Should().Be(3);
@@ -65,7 +62,7 @@ public class OwnerTests : PersistTest<BookContext>
     [Fact]
     public void GetAllOwners_CheckForEmptyList()
     {
-        var excpected = _ownerRepository.GetAll();
+        var excpected = _ownerRepository.FindAll();
         excpected.Count.Should().Be(0);
     }
 
@@ -105,9 +102,9 @@ public class OwnerTests : PersistTest<BookContext>
 
     [Theory]
     [InlineData("1234567890", true)]
-    [InlineData("",false)]
-    [InlineData(null,false)]
-    [InlineData("dflhf20i3h",false)]
+    [InlineData("", false)]
+    [InlineData(null, false)]
+    [InlineData("dflhf20i3h", false)]
     public void DoesNationalCodeExist_CheckForWorkingWell(string nationalCode, bool excpectation)
     {
         _ownerRepository.Add(_owner);

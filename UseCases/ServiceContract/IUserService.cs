@@ -10,6 +10,6 @@ namespace UseCases.ServiceContract
         Task<List<User>> GetAll();
         Task<User> GetById(int id);
         Task Delete(int Id);
-        Task Update(int id, string name, string family, int age, string email,int adminId);
+        Task Update(int id, string name, string family, int age, string email, int adminId);
     }
 }

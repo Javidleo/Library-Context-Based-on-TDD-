@@ -42,7 +42,7 @@ public class AdminTests : PersistTest<BookContext>
     public void GetAll_CheckForWorkingWell()
     {
         _repository.Add(_admin);
-        var adminList = _repository.GetAll();
+        var adminList = _repository.FindAll();
         adminList.Should().Contain(_admin);
     }
 
@@ -145,9 +145,7 @@ public class AdminTests : PersistTest<BookContext>
     [Fact, Trait("Admin", "Repository")]
     public void FindAdminWithName_CheckForInvalidData_ReturnNull()
     {
-
         var excpected = _repository.Find("name12321654");
-
         excpected.Should().BeNull();
     }
 

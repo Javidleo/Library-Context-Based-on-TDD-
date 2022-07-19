@@ -44,17 +44,17 @@ namespace BookTest.Unit.TestDoubles
 
         public User Find(int Id)
         {
-            if (this.id == Id) return new UserBuilder().Build();
+            if (id == Id) return new UserBuilder().Build();
             return null;
         }
 
         public User FindWithBooks(int Id)
         {
-            if (this.id == Id) return new UserBuilder().Build();
+            if (id == Id) return new UserBuilder().Build();
             return null;
         }
 
-        public List<User> GetAll()
+        public List<User> FindAll()
         {
             return new List<User>
             {

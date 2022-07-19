@@ -1,6 +1,4 @@
-﻿using DomainModel;
-
-namespace BookTest.Unit.Data.UserTestData;
+﻿namespace BookTest.Unit.Data.UserTestData;
 
 public class UserBuilder
 {

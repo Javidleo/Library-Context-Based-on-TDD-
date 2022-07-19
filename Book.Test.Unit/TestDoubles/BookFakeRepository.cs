@@ -11,9 +11,9 @@ namespace BookTest.Unit.TestDoubles
         private int _bookValidId;
         private bool _IsUnavailable = false;
 
-        public void SetExistingName(string name) => this._bookValidName = name;
-        public void SetExistingId(int id) => this._bookValidId = id;
-        public void MakeItUnAvailable() => this._IsUnavailable = true;
+        public void SetExistingName(string name) => _bookValidName = name;
+        public void SetExistingId(int id) => _bookValidId = id;
+        public void MakeItUnAvailable() => _IsUnavailable = true;
 
         public void Add(Book book)
         {
@@ -54,7 +54,7 @@ namespace BookTest.Unit.TestDoubles
             return list;
         }
 
-        public List<Book> GetAll()
+        public List<Book> FindAll()
         {
             var list = new List<Book>()
             {

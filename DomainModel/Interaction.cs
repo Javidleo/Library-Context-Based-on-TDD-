@@ -22,7 +22,7 @@ namespace DomainModel
 
         public virtual Admin Admin { get; private set; }
 
-        Interaction(int userId, int bookId, int adminId)
+        private Interaction(int userId, int bookId, int adminId)
         {
             UserId = userId;
             BookId = bookId;
@@ -35,12 +35,12 @@ namespace DomainModel
         => new Interaction(userId, bookId, adminId);
 
         public void LogicalDelete()
-        => this.IsDeleted = true;
+        => IsDeleted = true;
 
         public void Modify(int bookId, int userId)
         {
-            this.BookId = BookId;
-            this.UserId = UserId;
+            BookId = BookId;
+            UserId = UserId;
         }
     }
 }

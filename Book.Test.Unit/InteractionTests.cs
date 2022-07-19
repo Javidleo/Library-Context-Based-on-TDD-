@@ -1,7 +1,4 @@
-﻿using BookTest.Unit.Data.AdminTestData;
-using BookTest.Unit.Data.BookTestData;
-using BookTest.Unit.Data.InteractionTestData;
-using BookTest.Unit.Data.UserTestData;
+﻿using BookTest.Unit.Data.InteractionTestData;
 using BookTest.Unit.TestDoubles;
 using DomainModel;
 using FluentAssertions;
@@ -9,7 +6,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using UseCases.Exceptions;
-using UseCases.RepositoryContract;
+using UseCases.Services;
 using Xunit;
 
 namespace BookTest.Unit;
@@ -63,7 +60,7 @@ public class InteractionTests
         Assert.Equal("User Not Founded", exception.Message);
     }
 
-    
+
 
     [Fact, Trait("Integration", "Borrow")]
     public void BorrowBook_SendInvalidAdminId_ThrowNotFoundException()
@@ -88,7 +85,7 @@ public class InteractionTests
         result.Status.ToString().Should().Be("RanToCompletion");
     }
 
-    
+
     [Fact, Trait("Interaction", "logicalDelete")]
     public void DeleteInteraction_SendInvalidInteractionId_ThrowNotFoundException()
     {
@@ -96,13 +93,13 @@ public class InteractionTests
         Assert.Throws<NotFoundException>(result);
     }
 
-    [Fact, Trait("Interaction","logicalDelete")]
+    [Fact, Trait("Interaction", "logicalDelete")]
     public void DeleteInteraction_CheckForWorkingWell_ReturnSuccessTaskStatus()
     {
         _interactionRepository.SetExistingInteractionId(1);
         _bookRepository.SetExistingId(1);
         var interaction = new InteractionBuilder().WithBookId(1).WithUserId(1).Build();
-       
+
         var result = _service.Delete(Id: 1);
         interaction.IsDeleted.Should().BeTrue();
         result.Status.ToString().Should().Be("RanToCompletion");
@@ -160,7 +157,7 @@ public class InteractionTests
     [Fact]
     public void FindInteractionById_CheckForInvalidId_ThrowNotFoundedException()
     {
-        void result()=>  _service.FindByInteractionId(1);
+        void result() => _service.FindByInteractionId(1);
         Assert.Throws<NotFoundException>(result);
     }
 

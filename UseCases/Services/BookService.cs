@@ -1,13 +1,12 @@
 ﻿using DomainModel;
 using DomainModel.Validation;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
 
-namespace UseCases.Exceptions
+namespace UseCases.Services
 {
     public class BookService : IBookService
     {
@@ -34,7 +33,7 @@ namespace UseCases.Exceptions
         }
 
         public Task<List<Book>> GetAll()
-        => Task.FromResult(_repository.GetAll());
+        => Task.FromResult(_repository.FindAll());
 
         public Task<Book> GetById(int id)
         {

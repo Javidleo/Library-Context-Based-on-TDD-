@@ -20,7 +20,7 @@ namespace BookApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]AdminDto dto)
+        public async Task<IActionResult> Post([FromBody] AdminDto dto)
         {
             if (dto is null)
                 throw new NotAcceptableException("Null Input");

@@ -1,51 +1,31 @@
-﻿using DomainModel;
-using System.Collections.Generic;
+﻿using BookDataAccess.Repository.Abstraction;
+using DomainModel;
 using System.Linq;
 using UseCases.RepositoryContract;
 
 namespace BookDataAccess.Repository;
 
-public class AdminRepository : IAdminRepository
+public class AdminRepository : BaseRepository<Admin>, IAdminRepository
 {
-    private readonly BookContext _context;
-    public AdminRepository(BookContext context) => _context = context;
+    private readonly BookContext _bookContext;
 
-    public void Add(Admin admin)
+    public AdminRepository(BookContext bookContext) : base(bookContext)
     {
-        _context.Admin.Add(admin);
-        _context.SaveChanges();
+        _bookContext = bookContext;
     }
-
-    public List<Admin> GetAll()
-    => _context.Admin.ToList();
 
     public bool DoesNationalCodeExist(string nationalCode)
-    => _context.Admin.Any(i => i.NationalCode == nationalCode);
+    => _bookContext.Admin.Any(i => i.NationalCode == nationalCode);
 
     public Admin GetByNationalCode(string nationalCode)
-    => _context.Admin.FirstOrDefault(i => i.NationalCode == nationalCode);
-
-    public void Delete(Admin admin)
-    {
-        _context.Admin.Remove(admin);
-        _context.SaveChanges();
-    }
-
-    public Admin Find(int id)
-    => _context.Admin.FirstOrDefault(i => i.Id == id);
+    => _bookContext.Admin.FirstOrDefault(i => i.NationalCode == nationalCode);
 
     public Admin Find(string name)
-    => _context.Admin.FirstOrDefault(i => i.Name == name);
+    => _bookContext.Admin.FirstOrDefault(i => i.Name == name);
 
     public bool DoesUsernameExist(string username)
-    => _context.Admin.Any(i => i.UserName == username);
+    => _bookContext.Admin.Any(i => i.UserName == username);
 
     public bool DoesEmailExist(string email)
-    => _context.Admin.Any(i => i.Email == email);
-
-    public void Update(Admin admin)
-    {
-        _context.Update(admin);
-        _context.SaveChanges();
-    }
+    => _bookContext.Admin.Any(i => i.Email == email);
 }

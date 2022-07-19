@@ -1,13 +1,11 @@
-﻿using System;
-
-namespace DomainModel
+﻿namespace DomainModel
 {
     public class Owner
     {
         public int Id { get; private set; }
 
         public string Name { get; private set; }
-        
+
         public string Family { get; private set; }
 
         public string NationalCode { get; private set; }
@@ -18,7 +16,7 @@ namespace DomainModel
 
         public string Password { get; private set; }
 
-        Owner(string name, string family,string nationalcode, string phonenumber, string username, string password)
+        private Owner(string name, string family, string nationalcode, string phonenumber, string username, string password)
         {
             Name = name;
             Family = family;
@@ -29,16 +27,17 @@ namespace DomainModel
         }
         public Owner() { }
 
-        public static Owner Create(string name, string family, string nationalcode, string phonenumber, string username, string password)
+        public static Owner Create(string name, string family, string nationalcode, string phonenumber,
+                                    string username, string password)
         => new(name, family, nationalcode, phonenumber, username, password);
 
         public void Modify(string name, string family, string phoneNumber, string userName, string password)
         {
-            this.Name = name;
-            this.Family = family;
-            this.PhoneNumber = phoneNumber;
-            this.UserName = userName;
-            this.Password = password;
+            Name = name;
+            Family = family;
+            PhoneNumber = phoneNumber;
+            UserName = userName;
+            Password = password;
         }
     }
 }

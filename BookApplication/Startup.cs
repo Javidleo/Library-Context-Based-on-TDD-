@@ -7,10 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Collections.Generic;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
-using UseCases.Exceptions;
+using UseCases.Services;
 
 namespace BookApplication
 {
@@ -65,7 +64,7 @@ namespace BookApplication
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Admin}/{action=incd}/{id?}") ;
+                    pattern: "{controller=Admin}/{action=incd}/{id?}");
             });
         }
     }

@@ -1,5 +1,4 @@
 ﻿using DomainModel;
-using System;
 
 namespace BookTest.Unit.Data.InteractionTestData
 {
@@ -8,7 +7,7 @@ namespace BookTest.Unit.Data.InteractionTestData
         private int bookId = 1;
         private int userId = 1;
         private int adminId = 1;
- 
+
         public InteractionBuilder WithBookId(int bookId)
         {
             this.bookId = bookId;

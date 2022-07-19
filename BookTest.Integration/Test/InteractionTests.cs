@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UseCases.RepositoryContract;
 using Xunit;
 
@@ -99,7 +97,7 @@ namespace BookTest.Integration.Test
             _interactionRepository.Add(_interaction);
 
             var interaction = _interactionRepository.FindByBookId(_interaction.BookId);
-            interaction.Modify(2,2);
+            interaction.Modify(2, 2);
 
             _interactionRepository.Update(interaction);
             var modified = _interactionRepository.Find(interaction.Id);
@@ -128,7 +126,7 @@ namespace BookTest.Integration.Test
             _context.Interactions.AddRange(list);
             _context.SaveChanges();
 
-            var excpected = _interactionRepository.GetAll();
+            var excpected = _interactionRepository.FindAll();
 
             excpected[0].Should().BeEquivalentTo(list[0]);
             excpected[1].Should().BeEquivalentTo(list[1]);
@@ -139,7 +137,7 @@ namespace BookTest.Integration.Test
         [Fact]
         public void GetAll_CheckForEmptyList()
         {
-            var excpected = _interactionRepository.GetAll();
+            var excpected = _interactionRepository.FindAll();
             excpected.Count.Should().Be(0);
         }
     }
