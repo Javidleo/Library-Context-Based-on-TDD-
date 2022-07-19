@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UseCases.ViewModel;
 
 namespace UseCases.ServiceContract
 {
@@ -13,6 +14,6 @@ namespace UseCases.ServiceContract
         Task<Interaction> FindByBookId(int bookId);
         Task<Interaction> FindByInteractionId(int id);
         Task<List<Interaction>> FindByInteractionDate(DateTime date);
-        Task<List<Interaction>> GetAll();
+        Task<List<InteractionListViewModel>> GetAll();
     }
 }

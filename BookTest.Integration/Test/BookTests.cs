@@ -32,12 +32,12 @@ public class BookTests : PersistTest<BookContext>
         actual.Should().Be(_book);
     }
 
-    [Fact, Trait("Book", "Repository")]
-    public void CreateBook_CheckForNullData_ThrowException()
-    {
-        void result() => _repository.Add(null);
-        Assert.Throws<NullReferenceException>(result);
-    }
+    //[Fact, Trait("Book", "Repository")]
+    //public void CreateBook_CheckForNullData_ThrowException()
+    //{
+    //    void result() => _repository.Add(null);
+    //    Assert.Throws<NullReferenceException>(result);
+    //}
 
     [Fact, Trait("Book", "Repository")]
     public void GetAllBooks_CheckForWorkingWell()
@@ -151,10 +151,10 @@ public class BookTests : PersistTest<BookContext>
         excpected.DateofAdding.Should().Be(book.DateofAdding);
     }
 
-    [Fact, Trait("Book", "Repository")]
-    public void UpdateBook_CheckForNullData_ThrowExcption()
-    {
-        void result() => _repository.Update(null);
-        Assert.Throws<NullReferenceException>(result);
-    }
+    //[Fact, Trait("Book", "Repository")]
+    //public void UpdateBook_CheckForNullData_ThrowExcption()
+    //{
+    //    void result() => _repository.Update(null);
+    //    Assert.Throws<NullReferenceException>(result);
+    //}
 }

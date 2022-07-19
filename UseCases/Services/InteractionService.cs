@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
+using UseCases.ViewModel;
 
 namespace UseCases.Services
 {
@@ -24,6 +25,7 @@ namespace UseCases.Services
             _interactionRepository = interactionRepository;
         }
 
+        // ////////////////////////////////////   Borrow
         public Task Borrow(int userId, int bookId, int adminId)
         {
             var book = _bookRepository.Find(bookId);
@@ -33,28 +35,36 @@ namespace UseCases.Services
             if (book.InUse is true)
                 throw new NotAcceptableException("Cannot Borrow UnAvailable Book");
 
-
-            if (_userRepository.Find(userId) is null)
+            if (!_userRepository.DoesExist(i=> i.Id == userId))
                 throw new NotFoundException("User Not Founded");
 
-            if (_adminRepository.Find(adminId) is null)
+            if (!_adminRepository.DoesExist(i=> i.Id == adminId))
                 throw new NotFoundException("Admin Not Founded");
 
             Interaction interaction = Interaction.Create(userId, bookId, adminId);
 
             _interactionRepository.Add(interaction);
 
-            MakeBookUnAvailable(bookId);
+            MakeBookUnAvailable(book);
             return Task.CompletedTask;
         }
 
-        private void MakeBookUnAvailable(int bookId)
+        // ////////////////////////////////////      Make Book UnAvailable
+        private void MakeBookUnAvailable(Book book)
         {
-            var book = _bookRepository.Find(bookId);
             book.UnAvailable();
             _bookRepository.Update(book);
         }
 
+        // /////////////////////////////////     Make Book Available 
+        public void MakeBookAvailable(int bookId)
+        {
+            var book = _bookRepository.Find(bookId);
+            book.Available();
+            _bookRepository.Update(book);
+        }
+
+        // ///////////////////////////////////       Delete (logical Delete)
         public Task Delete(int Id)
         {
             var interaction = _interactionRepository.Find(Id);
@@ -65,26 +75,28 @@ namespace UseCases.Services
 
             _interactionRepository.Update(interaction);
 
-            MakeBookAvailable(interaction.BookId);
+            MakeBookAvailable(interaction.BookId); // after giving book back to the available mode and users can borrow it again
             return Task.CompletedTask;
         }
 
-        public void MakeBookAvailable(int bookId)
-        {
-            var book = _bookRepository.Find(bookId);
-            book.Available();
-            _bookRepository.Update(book);
-        }
+        // ////////////////////////////////////   GetAll
+        public Task<List<InteractionListViewModel>> GetAll()
+        => Task.FromResult(_interactionRepository.GetAll());
 
-        public Task<List<Interaction>> GetAll()
-        => Task.FromResult(_interactionRepository.FindAll());
-
+        // //////////////////////////////////      Find By User Id 
         public Task<List<Interaction>> FindByUserId(int userId)
         => Task.FromResult(_interactionRepository.FindByUserId(userId));
 
+        // /////////////////////////////////////        Find By Book Id
         public Task<Interaction> FindByBookId(int bookId)
-        => Task.FromResult(_interactionRepository.FindByBookId(bookId));
+        {
+            var intearction = _interactionRepository.FindByBookId(bookId);
+            if (intearction is null)
+                throw new NotFoundException("no interaction founded with this bookId");
+            return Task.FromResult(intearction);
+        }
 
+        // ///////////////////////////////////           Find By Interaction Id
         public Task<Interaction> FindByInteractionId(int id)
         {
             var interaction = _interactionRepository.Find(id);
@@ -94,6 +106,7 @@ namespace UseCases.Services
             return Task.FromResult(interaction);
         }
 
+        // //////////////////////////////////////     Find By Interaction Date
         public Task<List<Interaction>> FindByInteractionDate(DateTime date)
         => Task.FromResult(_interactionRepository.Find(date));
     }

@@ -31,12 +31,12 @@ public class AdminTests : PersistTest<BookContext>
         _admin.Should().BeEquivalentTo(excpected);
     }
 
-    [Fact, Trait("Admin", "Repository")]
-    public void CreateAdmin_TryToCreateNull_ReturnSqlServerError()
-    {
-        void result() => _repository.Add(null);
-        Assert.Throws<NullReferenceException>(result);
-    }
+    //[Fact, Trait("Admin", "Repository")]
+    //public void CreateAdmin_TryToCreateNull_ReturnSqlServerError()
+    //{
+    //    void result() => _repository.Add(null);
+    //    Assert.Throws<NullReferenceException>(result);
+    //}
 
     [Fact, Trait("Admin", "Repository")]
     public void GetAll_CheckForWorkingWell()
@@ -100,14 +100,14 @@ public class AdminTests : PersistTest<BookContext>
         excpected.Should().BeNull();
     }
 
-    [Fact, Trait("Admin", "Repository")]
-    public void DeleteAdmin_CheckForNullData_ThrowNullReferenceException()
-    {
-        _repository.Add(_admin);
+    //[Fact, Trait("Admin", "Repository")]
+    //public void DeleteAdmin_CheckForNullData_ThrowNullReferenceException()
+    //{
+    //    _repository.Add(_admin);
 
-        void result() => _repository.Delete(null);
-        Assert.Throws<ArgumentNullException>(result);
-    }
+    //    void result() => _repository.Delete(null);
+    //    Assert.Throws<ArgumentNullException>(result);
+    //}
 
     [Fact, Trait("Admin", "Repository")]
     public void FindAdminWithId_CheckForWorkingWell()
@@ -170,11 +170,11 @@ public class AdminTests : PersistTest<BookContext>
         excpected.DateofBirth.Should().Be(newAdmin.DateofBirth);
     }
 
-    [Fact, Trait("Admin", "Repository")]
-    public void UpdateAdmin_CheckForNullData_ThrowException()
-    {
-        void result() => _repository.Update(null);
-        Assert.Throws<ArgumentNullException>(result);
-    }
+    //[Fact, Trait("Admin", "Repository")]
+    //public void UpdateAdmin_CheckForNullData_ThrowException()
+    //{
+    //    void result() => _repository.Update(null);
+    //    Assert.Throws<ArgumentNullException>(result);
+    //}
 
 }

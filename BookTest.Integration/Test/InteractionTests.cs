@@ -32,12 +32,12 @@ namespace BookTest.Integration.Test
             interaction[0].Should().BeEquivalentTo(_interaction);
         }
 
-        [Fact]
-        public void AddInteractionon_CheckForNullData_ThrowExcpetion()
-        {
-            void result() => _interactionRepository.Add(null);
-            Assert.Throws<NullReferenceException>(result);
-        }
+        //[Fact]
+        //public void AddInteractionon_CheckForNullData_ThrowExcpetion()
+        //{
+        //    void result() => _interactionRepository.Add(null);
+        //    Assert.Throws<NullReferenceException>(result);
+        //}
 
         [Fact]
         public void FindByUserId_CheckForWorkingWell()
@@ -106,12 +106,12 @@ namespace BookTest.Integration.Test
             modified.UserId.Should().Be(2);
         }
 
-        [Fact]
-        public void UpdateUser_CheckForNullData_ThrowException()
-        {
-            void result() => _interactionRepository.Update(null);
-            Assert.Throws<ArgumentNullException>(result);
-        }
+        //[Fact]
+        //public void UpdateUser_CheckForNullData_ThrowException()
+        //{
+        //    void result() => _interactionRepository.Update(null);
+        //    Assert.Throws<ArgumentNullException>(result);
+        //}
 
         [Fact]
         public void GetAll_CheckForWorkingWell()

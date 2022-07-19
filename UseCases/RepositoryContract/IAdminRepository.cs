@@ -1,5 +1,7 @@
 ﻿using DomainModel;
+using System.Collections.Generic;
 using UseCases.RepositoryContract.Abstraction;
+using UseCases.ViewModel;
 
 namespace UseCases.RepositoryContract
 {
@@ -10,5 +12,6 @@ namespace UseCases.RepositoryContract
         bool DoesEmailExist(string email);
         Admin GetByNationalCode(string nationalCode);
         Admin Find(string name);
+        List<AdminListViewModel> GetAll();
     }
 }

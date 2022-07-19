@@ -1,8 +1,10 @@
 ﻿using BookDataAccess.Repository.Abstraction;
 using DomainModel;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using UseCases.RepositoryContract;
+using UseCases.ViewModel;
 
 namespace BookDataAccess.Repository;
 
@@ -21,4 +23,12 @@ public class BookRepository : BaseRepository<Book>, IBookRepository
     public bool DoesNameExist(string name)
     => _bookContext.Books.Any(i => i.Name == name);
 
+    public List<BookListViewModel> GetAll()
+    => _bookContext.Books.Select(i => new BookListViewModel
+    {
+        BookName = i.Name,
+        AuthorName = i.AuthorName,
+        DateOfAdding = i.DateofAdding,
+        InUse = i.InUse
+    }).AsNoTracking().ToList();
 }

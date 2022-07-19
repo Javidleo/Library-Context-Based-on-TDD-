@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UseCases.Exceptions;
 using UseCases.RepositoryContract;
 using UseCases.ServiceContract;
+using UseCases.ViewModel;
 
 namespace UseCases.Services
 {
@@ -18,28 +19,28 @@ namespace UseCases.Services
             _repository = repository;
         }
 
-        public Task Create(string name, string family, string dateofBirth, string natioanlCode, string userName, string email, string password)
+        public Task Create(string name, string family, string dateofBirth, string nationalCode, string userName, string email, string password)
         {
-            Admin admin = Admin.Create(name, family, dateofBirth, natioanlCode, userName, email, password);
+            Admin admin = Admin.Create(name, family, dateofBirth, nationalCode, userName, email, password);
 
             if (!validation.Validate(admin).IsValid)
                 throw new NotAcceptableException("Invalid Inputs");
 
-            if (_repository.DoesNationalCodeExist(admin.NationalCode))
+            if (_repository.DoesExist(i=> i.NationalCode == nationalCode))
                 throw new DuplicateException("Duplicate NationalCode");
 
-            if (_repository.DoesUsernameExist(admin.UserName))
+            if (_repository.DoesExist(i=> i.UserName == userName))
                 throw new DuplicateException("Duplicate Username");
 
-            if (_repository.DoesEmailExist(admin.Email))
+            if (_repository.DoesExist(i => i.Email == email))
                 throw new DuplicateException("Duplicate Email");
 
             _repository.Add(admin);
             return Task.CompletedTask;
         }
 
-        public Task<List<Admin>> GetAll()
-        => Task.FromResult(_repository.FindAll());
+        public Task<List<AdminListViewModel>> GetAll()
+        => Task.FromResult(_repository.GetAll());
 
         public Task<Admin> GetByNationalCode(string nationalCode)
         {
@@ -64,16 +65,14 @@ namespace UseCases.Services
 
         public Task Update(int id, string name, string family, string dateofBirth, string username, string email, string password)
         {
-
             var admin = _repository.Find(id);
-
             if (admin is null)
                 throw new NotFoundException("Not Founded");
 
-            if (_repository.DoesEmailExist(email))
+            if (_repository.DoesExist(i => i.Email == email))
                 throw new DuplicateException("Duplicate Email");
 
-            if (_repository.DoesUsernameExist(username))
+            if (_repository.DoesExist(i=> i.UserName == username))
                 throw new DuplicateException("Duplicate Username");
 
             admin.Modify(name, family, dateofBirth, username, email, password);

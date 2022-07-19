@@ -34,12 +34,12 @@ public class UserTests : PersistTest<BookContext>
         _user.Should().BeEquivalentTo(excpected);
     }
 
-    [Fact, Trait("User", "Repository")]
-    public void CreateUser_CheckForNullData_ThrowExcption()
-    {
-        void result() => _userRepository.Add(null);
-        Assert.Throws<NullReferenceException>(result);
-    }
+    //[Fact, Trait("User", "Repository")]
+    //public void CreateUser_CheckForNullData_ThrowExcption()
+    //{
+    //    void result() => _userRepository.Add(null);
+    //    Assert.Throws<NullReferenceException>(result);
+    //}
 
     [Fact, Trait("User", "Repository")]
     public void GetAllUsers_CheckForDoingWell()
@@ -159,13 +159,13 @@ public class UserTests : PersistTest<BookContext>
         excpected.Email.Should().Be(user.Email);
     }
 
-    [Fact]
-    public void UpdateUser_CheckForNullData_ThrowExcpetion()
-    {
-        void result() => _userRepository.Update(null);
+    //[Fact]
+    //public void UpdateUser_CheckForNullData_ThrowExcpetion()
+    //{
+    //    void result() => _userRepository.Update(null);
 
-        Assert.Throws<ArgumentNullException>(result);
-    }
+    //    Assert.Throws<ArgumentNullException>(result);
+    //}
 
     [Fact]
     public void DeleteUser_CheckForWorkingWell()
@@ -178,12 +178,12 @@ public class UserTests : PersistTest<BookContext>
         excpected.Should().BeNull();
     }
 
-    [Fact]
-    public void DeleteUser_CheckForNullData_ThrowExcpection()
-    {
-        void result() => _userRepository.Delete(null);
-        Assert.Throws<ArgumentNullException>(result);
-    }
+    //[Fact]
+    //public void DeleteUser_CheckForNullData_ThrowExcpection()
+    //{
+    //    void result() => _userRepository.Delete(null);
+    //    Assert.Throws<ArgumentNullException>(result);
+    //}
 
     [Theory]
     [InlineData("javidleo.ef@gmail.com", true)]

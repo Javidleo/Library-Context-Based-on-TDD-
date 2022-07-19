@@ -1,9 +1,11 @@
 ﻿using BookDataAccess.Repository.Abstraction;
 using DomainModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UseCases.RepositoryContract;
+using UseCases.ViewModel;
 
 namespace BookDataAccess.Repository;
 
@@ -21,4 +23,12 @@ public class InteractionRepository : BaseRepository<Interaction>, IInteractionRe
 
     public List<Interaction> Find(DateTime date)
     => _context.Interactions.Where(i => i.Date == date).ToList();
+
+    public List<InteractionListViewModel> GetAll()
+    => _context.Interactions.Include(i => i.Book).Include(i => i.User).Include(i => i.Admin).Select(i => new InteractionListViewModel
+    {
+        BookName = i.Book.Name,
+        AdminName = i.Admin.Name,
+        UserName = i.User.Name // add date later
+    }).AsNoTracking().ToList();
 }

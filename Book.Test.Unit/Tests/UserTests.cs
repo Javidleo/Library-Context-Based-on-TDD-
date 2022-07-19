@@ -8,23 +8,21 @@ using UseCases.RepositoryContract;
 using UseCases.Services;
 using Xunit;
 
-namespace BookTest.Unit;
+namespace BookTest.Unit.Tests;
 
 public class UserTests
 {
     private readonly UserService service;
     private readonly UserValidation validation;
-    private readonly Mock<IUserRepository> _userRepositoryMock;
-    private readonly Mock<IAdminRepository> _adminRepositoryMock;
+    private readonly Mock<IUserRepository> _userRepository;
+    private readonly Mock<IAdminRepository> _adminRepository;
     private readonly Mock<IInteractionRepository> _interactionRepository;
-    private readonly MockRepository mockRepository;
     public UserTests()
     {
-        mockRepository = new MockRepository(MockBehavior.Loose);
-        _userRepositoryMock = mockRepository.Create<IUserRepository>();
-        _adminRepositoryMock = mockRepository.Create<IAdminRepository>();
-        _interactionRepository = mockRepository.Create<IInteractionRepository>();
-        service = new UserService(_userRepositoryMock.Object, _adminRepositoryMock.Object);
+        _userRepository = new Mock<IUserRepository>();
+        _adminRepository = new Mock<IAdminRepository>();
+        _interactionRepository = new Mock<IInteractionRepository>();
+        service = new UserService(_userRepository.Object, _adminRepository.Object);
         validation = new UserValidation();
     }
 
@@ -106,10 +104,10 @@ public class UserTests
     public void DeleteUser_CheckForWorkingWell_VerifingSuccessfully()
     {
         var user = new UserBuilder().Build();
-        _userRepositoryMock.Setup(i => i.FindWithBooks(1)).Returns(user);
+        _userRepository.Setup(i => i.FindWithBooks(1)).Returns(user);
 
         var result = service.Delete(1);
-        _userRepositoryMock.Verify(i => i.Delete(user), Times.Once());
+        _userRepository.Verify(i => i.Delete(user), Times.Once());
         result.Status.ToString().Should().Be("RanToCompletion");
     }
 
@@ -124,10 +122,10 @@ public class UserTests
     public void UpdateUser_CheckForWorkingWell_ReturnSuccessTaskStatus()
     {
         var user = new UserBuilder().Build();
-        _userRepositoryMock.Setup(i => i.Find(1)).Returns(user);
+        _userRepository.Setup(i => i.Find(1)).Returns(user);
         var result = service.Update(1, "reza", "mohamadi", 18, "rezaahmadi.ef@gmail.com", 1);
 
-        _userRepositoryMock.Verify(i => i.Update(user), Times.Once());
+        _userRepository.Verify(i => i.Update(user), Times.Once());
         user.Name.Should().Be("reza");
         user.Family.Should().Be("mohamadi");
     }
@@ -135,7 +133,7 @@ public class UserTests
     [Fact, Trait("User", "update")]
     public void UpdateUser_CheckForDuplicateEmail_ThrowNotAcceptableException()
     {
-        _userRepositoryMock.Setup(i => i.DoesEmailExist("javidleo.ef@gmail.com")).Returns(true);
+        _userRepository.Setup(i => i.DoesEmailExist("javidleo.ef@gmail.com")).Returns(true);
         void result() => service.Update(1, "ali", "rezaie", 18, "javidleo.ef@gmail.com", 1);
 
         Assert.Throws<DuplicateException>(result);
@@ -169,7 +167,7 @@ public class UserTests
     {
         var user = new UserBuilder().Build();
 
-        _userRepositoryMock.Setup(i => i.Find(1)).Returns(user);
+        _userRepository.Setup(i => i.Find(1)).Returns(user);
         var result = service.GetById(1);
 
         result.Result.Should().Be(user);
@@ -189,7 +187,7 @@ public class UserTests
     {
         var user = new UserBuilder().Build();
 
-        _userRepositoryMock.Setup(i => i.Find(user.Name)).Returns(user);
+        _userRepository.Setup(i => i.Find(user.Name)).Returns(user);
         var result = service.GetByName(user.Name);
     }
 

@@ -25,6 +25,7 @@ namespace BookApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Repository Contract
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IAdminRepository, AdminRepository>();
             services.AddTransient<IBookRepository, BookRepository>();
@@ -42,7 +43,8 @@ namespace BookApplication
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookApplication", Version = "v1" });
             });
-            services.AddDbContext<BookContext>(option => option.UseSqlServer(Configuration.GetConnectionString("LocalDb")), ServiceLifetime.Singleton);
+            services.AddDbContext<BookContext>(option => 
+                    option.UseSqlServer(Configuration.GetConnectionString("LocalDb")), ServiceLifetime.Singleton);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

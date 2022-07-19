@@ -29,12 +29,5 @@ public class BookBuilder
         return this;
     }
     public Book Build()
-    {
-        Book book = Book.Create(_name, _authorName, _addingDate);
-        if (_inUse is true)
-            book.UnAvailable();
-        else
-            book.Available();
-        return book;
-    }
+    => Book.Create(_name, _authorName, _addingDate);
 }

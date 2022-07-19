@@ -1,7 +1,10 @@
-﻿namespace BookTest.Unit.Data.AdminTestData;
+﻿using DomainModel;
+
+namespace BookTest.Unit.Data.AdminTestData;
 
 public class AdminBuilder
 {
+    private int _Id = 1;
     private string _name = "ali";
     private string _family = "rezaie";
     private string _dateofBirth = "11/12/1399";
@@ -10,6 +13,11 @@ public class AdminBuilder
     private string _email = "javidleo@gmail.com";
     private string _password = "Jsdf24#342";
 
+    public AdminBuilder WithId(int Id)
+    {
+        _Id = Id;
+        return this;
+    }
     public AdminBuilder WithName(string name)
     {
         _name = name;
@@ -45,9 +53,6 @@ public class AdminBuilder
         _password = password;
         return this;
     }
-    public DomainModel.Admin Build()
-    {
-        DomainModel.Admin admin = DomainModel.Admin.Create(_name, _family, _dateofBirth, _nationalCode, _userName, _email, _password);
-        return admin;
-    }
+    public Admin Build()
+    => Admin.CreateForTest(_Id, _name, _family, _dateofBirth, _nationalCode, _userName, _email, _password);
 }

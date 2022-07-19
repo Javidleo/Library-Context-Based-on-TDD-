@@ -34,6 +34,24 @@ namespace DomainModel
 
         => new(name, family, dateofbirth, nationalcode, username, email, password);
 
+        private Admin(int Id,string name, string family, string dateofBirth, string nationalCode, string userName,
+                        string email, string password)
+        {
+            this.Id = Id;
+            Name = name;
+            Family = family;
+            DateofBirth = dateofBirth;
+            NationalCode = nationalCode;
+            UserName = userName;
+            Email = email;
+            Password = password;
+        }
+
+        public static Admin CreateForTest(int Id, string name, string family, string dateofBirth, string nationalCode,
+                                            string userName, string email, string password)
+
+            => new(Id, name, family, dateofBirth, nationalCode, userName, email, password);
+
         public void Modify(string name, string family, string dateofBirth, string username, string email, string password)
         {
             Name = name;
